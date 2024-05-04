@@ -1,0 +1,34 @@
+* {
+    margin: 0;
+    border: 0;
+}
+
+h1 {
+    margin: auto;
+    text-align: center;    
+    padding: 10px 0px 0px 0px;
+}
+
+body {
+    background-color: rgb(174, 201, 186);
+}
+
+.gameBody {
+    height: 700px;
+}
+
+.bottomBoxes {
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+}
+
+#chatBox {
+    height: 150px;
+    width: 450px;
+}
+
+#chipBox {
+    height: 150px;
+    width: 450px;
+}
