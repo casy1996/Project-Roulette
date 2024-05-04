@@ -11,11 +11,19 @@ h1 {
 
 body {
     background-color: rgb(174, 201, 186);
+    background-color: rgb(87, 101, 93);
 }
 
-.gameBody {
-    height: 700px;
+/* MENU STYLE */
+#newGameButton {
+    margin: 0px 0px 5px 20px;
 }
+
+#roundTracker {
+    margin: 0px 0px 0px 20px;
+}
+
+/* CHIPS AND CHAT STYLING */
 
 .bottomBoxes {
     display: flex;
@@ -32,3 +40,132 @@ body {
     height: 150px;
     width: 450px;
 }
+
+
+
+/* TABLE STYLING */
+
+.gameBody {
+    padding: 130px 0px 0px 0px;
+    height: 430px;
+
+}
+
+.gameTable {
+    display: grid;
+    grid-template-columns: 80px 600px 80px;
+    grid-template-rows: 35px 35px 35px 30px 30px;
+    /* width: 51.3%; */
+    margin: 0 auto;
+    justify-content: center;
+    /* background-color: darkgreen; */
+}
+
+
+.insideBet {
+    background-color: rgba(38, 113, 38, 1);
+    color: white;
+    /* box-shadow: 1px 1px 1px 1px rgba(84, 47, 17, 1); */
+    /* box-shadow: 0px 0px 0px 1px rgb(255, 255, 255); */
+}
+
+.outsideBet {
+    background-color: rgba(38, 113, 38, 1);
+    color: white;
+    box-shadow: 2px 2px 2px 2px rgba(84, 47, 17, 1);
+}
+
+.longBet {
+    box-shadow: 2px 2px 2px 2px rgba(84, 47, 17, 1);
+}
+
+.zeroBet {
+    box-shadow: 2px 2px 0px 2px rgba(84, 47, 17, 1);
+}
+
+.topMiddleCell {
+    display: flex;
+    border: 1px solid black;
+    /* gap: 20px; */
+}
+
+.topRowBet {
+    flex: 1;
+    text-align: center;
+    border: 1px solid black;
+    
+}
+
+.middleMiddleCell {
+    display: flex;
+    border: 1px solid black;
+    /* gap: 20px; */
+}
+
+.middleRowBet {
+    flex: 1;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.bottomMiddleCell {
+    display: flex;
+    border: 1px solid black;
+    /* gap: 20px; */
+}
+
+.bottomRowBet {
+    flex: 1;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.upperMiddleCell {
+    display: flex;
+}
+
+.outsideTop {
+    flex: 1;
+    text-align: center;
+    border: 1px solid black;
+
+}
+
+.lowerMiddleCell {
+    display: flex;
+}
+
+.outsideBottom {
+    flex: 1;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.emptyCell {
+    border: none;
+}
+
+.blackNum {
+    background-color: black;
+    border-color: white;
+    border-radius: 50%;
+}
+
+.redNum {
+    background-color: red;
+    border-color: white;
+    border-radius: 50%;
+}
+
+.blackDiamond {
+    background-color: black;
+    /* border-color: white;
+    border-radius: 10%; */
+}
+
+.redDiamond {
+    background-color: red;
+    /* border-color: white;
+    border-radius: 10%; */
+}
+
