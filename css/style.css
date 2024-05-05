@@ -54,10 +54,11 @@ body {
 .gameTable {
     display: grid;
     grid-template-columns: 80px 600px 80px;
-    grid-template-rows: 35px 35px 35px 30px 30px;
+    grid-template-rows: 35px 20px 35px 20px 35px 20px 30px 30px;
     /* width: 51.3%; */
     margin: 0 auto;
     justify-content: center;
+    font-size: 18px;
     /* background-color: darkgreen; */
 }
 
@@ -85,8 +86,7 @@ body {
 
 .topMiddleCell {
     display: flex;
-    border: 1px solid black;
-    /* gap: 20px; */
+    /* border: 1px solid black; */
 }
 
 .topRowBet {
@@ -96,10 +96,19 @@ body {
     
 }
 
+.topSpaceCell {
+    display: flex;
+    /* border: 1px solid black; */
+}
+
+.topSpaceBet {
+    flex: 1;
+    /* border: 1px solid black; */
+}
+
 .middleMiddleCell {
     display: flex;
-    border: 1px solid black;
-    /* gap: 20px; */
+    /* border: 1px solid black; */
 }
 
 .middleRowBet {
@@ -108,16 +117,35 @@ body {
     border: 1px solid black;
 }
 
-.bottomMiddleCell {
+.middleSpaceCell {
     display: flex;
-    border: 1px solid black;
-    /* gap: 20px; */
+    /* border: 1px solid black; */
+}
+
+.middleSpaceBet {
+    flex: 1;
+    /* border: 1px solid black; */
+}
+
+.bottomSpaceCell {
+    display: flex;
+    /* border: 1px solid black; */
 }
 
 .bottomRowBet {
     flex: 1;
     text-align: center;
     border: 1px solid black;
+}
+
+.bottomSpaceBet {
+    flex: 1;
+    /* border: 1px solid black; */
+}
+
+.bottomMiddleCell {
+    display: flex;
+    /* border: 1px solid black; */
 }
 
 .upperMiddleCell {
