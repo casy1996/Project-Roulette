@@ -22,12 +22,15 @@
     <!-- Create a grid? Then Make the other sections independant of the grid. -->
 
     <!-- GAMEPLAN: -->
-    <!-- Style these DIVS to create the board -->
+    <!-- Style these DIVS to create the board  -->
+    <!-- COMPLETED!!! -->
 
     <!-- Make the divs clickable to so that we can 'bet' on them-->
-    <!-- On click of the div, a Chip object should be placed on that section of the board -->
+    <!-- Add chip image to HTML. Create addEventListener that calls on a variable of all betting DIVS, "Click" (WITH LMB) should place the chip one at a time. -->
+    <!-- "Click" (WITH RMB) should remove chips one at a time. -->
+    <!-- ADD Remove all chips button. -->
 
-    <!-- If clicked again on the same div, the Chip should be removed -->
+
 
     <!-- A button called Place Bets should run a FUNCTION placebet ONCLICK that should......
          1) Spin the wheel 
@@ -69,29 +72,29 @@
 
             <div class="insideBet topSpaceBet"></div>
             <div class="insideBet topSpaceCell">
-                <div class="insideBet topSpaceBet doubleBet" id="23"></div>
-                <div class="insideBet topSpaceBet fourBet" id="2356"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="56"></div>
-                <div class="insideBet topSpaceBet fourBet" id="5689"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="89"></div>
-                <div class="insideBet topSpaceBet fourBet" id="891112"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="1112"></div>
-                <div class="insideBet topSpaceBet fourBet" id="11121415"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="1415"></div>
-                <div class="insideBet topSpaceBet fourBet" id="14151718"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="1718"></div>
-                <div class="insideBet topSpaceBet fourBet" id="17182021"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="2021"></div>
-                <div class="insideBet topSpaceBet fourBet" id="20212324"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="2324"></div>
-                <div class="insideBet topSpaceBet fourBet" id="23242627"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="2627"></div>
-                <div class="insideBet topSpaceBet fourBet" id="26272930"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="2930"></div>
-                <div class="insideBet topSpaceBet fourBet" id="29303233"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="3233"></div>
-                <div class="insideBet topSpaceBet fourBet" id="32333536"></div>
-                <div class="insideBet topSpaceBet doubleBet" id="3536"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="23"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="2356"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="56"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="5689"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="89"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="891112"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="1112"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="11121415"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="1415"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="14151718"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="1718"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="17182021"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="2021"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="20212324"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="2324"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="23242627"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="2627"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="26272930"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="2930"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="29303233"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="3233"></div>
+                <div class="insideBet topSpaceBet spaceBet fourBet" id="32333536"></div>
+                <div class="insideBet topSpaceBet spaceBet doubleBet" id="3536"></div>
             </div>
             <div class="insideBet topSpaceBet"></div>
 
@@ -211,7 +214,7 @@
             
 
 
-
+            
             <div class="outsideTop emptyCell"></div>
             <div class="outsideBet upperMiddleCell">
                 <div class="outsideBet outsideTop" id="dozenOne">1st 12</div>
@@ -237,8 +240,18 @@
     </div>
 
     <div class="bottomBoxes">    
-        <div id="chipBox">Chip Storage potentially</div>
-        <div id="chatBox">Chat Box for game history</div>
+        <div id="chipBox">Player Chips | Total Value: 500
+            <div class="casinoChips">
+                <!-- <a href="https://www.flaticon.com/free-icon/casino-chip_6177786" Icons created by smashingstocks - Flaticon> -->
+                <img class="chips" id="chip_1" src="chip images/casino-chip-1.png" data-value="1">
+                <img class="chips" id="chip_5" src="chip images/casino-chip-5.png" data-value="5">
+                <img class="chips" id="chip_25" src="chip images/casino-chip-25.png" data-value="25">
+                <img class="chips" id="chip_100" src="chip images/casino-chip-100.png" data-value="100">
+                <img class="chips" id="chip_500" src="chip images/casino-chip-500.png" data-value="500">
+            </div>
+        </div>
+        <div id="chatBox">Game History</div>
+        </div>
     </div>
     <!-- upgrade if time -->
 
