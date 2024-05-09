@@ -86,7 +86,7 @@ body {
 
 .gameBody {
     padding: 130px 0px 0px 0px;
-    height: 380px;
+    height: 300px;
 
 }
 
@@ -257,3 +257,24 @@ body {
     border-radius: 10%; */
 }
 
+
+/* BET BUTTON STYLING */
+
+.gameOptions {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0px 0px 50px 0px;
+    width: 200px;
+}
+
+#removeBets {
+    height: 35px
+}
+
+.betAmountThisRound {
+    margin: 0 auto;
+    text-align: center;
+    font-size: 30px;
+    padding: 0px 0px 10px 0px;
+}

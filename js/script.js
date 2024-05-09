@@ -232,115 +232,178 @@ class Player {
     }
 }
 
-const gambler = new Player (5000)
+const gambler = new Player (1000)
 
 const valueOfChips = document.getElementById("chipsValue")
 valueOfChips.textContent = `Player Chips | Total Value: ${gambler.money}`
 
-let betAmount = 0;
+const chipWallet = gambler.money
 
 // MAKE ALL CHIPS separte buttons
 
-// Creating variables so its easier to call
+// Creating variables for chips so its easier to call
 const chip1 = document.getElementById("chip_1")
 const chip2 = document.getElementById("chip_5")
 const chip3 = document.getElementById("chip_25")
 const chip4 = document.getElementById("chip_100")
 const chip5 = document.getElementById("chip_500")
+
+// Create variable to call all chips for forEach function
 const chips = document.querySelectorAll(".chips");
 
 chips.forEach(chip => {
     chip.addEventListener("click", function() {
-        if (betAmount + valueOfChips <= gambler.money) {
-            chips.forEach(c => {
-                c.classList.remove("betChoice");
-                c.style.filter = "grayscale(0)";
-            });
-            chip.classList.add("betChoice");
-            chip.style.filter = "grayscale(0.75)";
+        chips.forEach(chip => {
+            chip.classList.remove("betChoice");
+            chip.style.filter = "grayscale(0)";           
+        })
+        chip.classList.add("betChoice");
+        chip.style.filter = "grayscale(0.85)";
+    });
+});
+// The above should add class="betChoice" when clicked on. Visually, we know it clicked on because the image changes color.
+
+
+
+// Create variable currentChip that reads if we have class="betChoice"
+// Variable to call the bets on the board
+const rouletteBets = document.querySelectorAll(".topRowBet, .middleSpaceBet, .bottomRowBet, .spaceBet, .outsideTop, .outsideBottom")
+
+// Why did getElementByClassName("betAmountThisRound") not work???
+const betAmountText = document.querySelector(".betAmountThisRound")
+
+let betAmount = 0;
+
+rouletteBets.forEach(rouletteBet => {
+    rouletteBet.addEventListener("click", function() {
+        const currentChip = document.querySelector(".betChoice")
+        if(currentChip) {
+            // call money value of the currently selected chip
+            const chipValue = parseInt(currentChip.getAttribute("data-value"));
+            // conditional where betAmount (starts at 0) + the value of a chip must be less or equal to the total amount of money we have. Because we cannot bet more than we have.
+            if (betAmount + chipValue <= gambler.money) {
+                // If the conditional is true, then allow the player to bet.
+                // Add the currentChip value to the betAmount so the game tracks we are below our total money
+                betAmount += chipValue 
+                // Edit text field in HTML that will show our bet
+                betAmountText.textContent = `Current Bet: ${betAmount}`;
+                // call the image of the currently selected chip
+                const chipImg = currentChip.getAttribute("src");
+                // variable to create a new image
+                const placeNewChip = document.createElement("img");
+                placeNewChip.src = chipImg;
+                // Style of the chip when its on the board
+                placeNewChip.style.width = "30px"
+                placeNewChip.style.height = "30px"
+                rouletteBet.appendChild(placeNewChip);     
+            } else {
+                alert("Cannot bet more than your total money.")
+            }
         }
     });
 });
 
+
+// const rouletteBets = document.querySelectorAll('.topRowBet, .middleRowBet, .bottomRowBet, .spaceBet, .outsideTop, .outsideBottom');
+
+// rouletteBets.forEach(betSpace => {
+//     betSpace.addEventListener('click', function() {
+//         const currentChip = document.querySelector('.betChoice');
+//         if (betAmount + chipWallet <= gambler.money) {
+//             const chipValue = currentChip.getAttribute('data-value');
+//             const chipImgSrc = currentChip.getAttribute('src');
+//             const chipImg = document.createElement('img');
+//             chipImg.src = chipImgSrc;
+            // chipImg.style.width = '20px';
+            // chipImg.style.height = '20px';
+            // betSpace.appendChild(chipImg);
+            // valueOfChips.textContent = `Player Chips | Total Value: ${gambler.money - chipValue}`
+            // Update betAmount or perform other actions
+//         }
+//     });
+// });
+
+
+
 // Select Chip_1 as your bet
-chip1.addEventListener("click", function pickChip1() {
-    if (betAmount + valueOfChips <= gambler.money) {
-        chip1.classList.add("betChoice");
-        chip2.classList.remove("betChoice");
-        chip3.classList.remove("betChoice");
-        chip4.classList.remove("betChoice");
-        chip5.classList.remove("betChoice");
-        chip1.style.filter = "grayscale(0.75)"
-        chip2.style.filter = "grayscale(0)"
-        chip3.style.filter = "grayscale(0)"
-        chip4.style.filter = "grayscale(0)"
-        chip5.style.filter = "grayscale(0)"
-    }
-});
+// chip1.addEventListener("click", function pickChip1() {
+//     if (betAmount + chipWallet <= gambler.money) {
+//         chip1.classList.add("betChoice");
+//         chip2.classList.remove("betChoice");
+//         chip3.classList.remove("betChoice");
+//         chip4.classList.remove("betChoice");
+//         chip5.classList.remove("betChoice");
+//         chip1.style.filter = "grayscale(0.85)"
+//         chip2.style.filter = "grayscale(0)"
+//         chip3.style.filter = "grayscale(0)"
+//         chip4.style.filter = "grayscale(0)"
+//         chip5.style.filter = "grayscale(0)"
+//     }
+// });
 
 // Select Chip_2 as your bet
-chip2.addEventListener("click", function pickChip2() {
-    if (betAmount + valueOfChips <= gambler.money) {
-        chip2.classList.add("betChoice");
-        chip1.classList.remove("betChoice");
-        chip3.classList.remove("betChoice");
-        chip4.classList.remove("betChoice");
-        chip5.classList.remove("betChoice");
-        chip2.style.filter = "grayscale(0.75)"
-        chip1.style.filter = "grayscale(0)"
-        chip3.style.filter = "grayscale(0)"
-        chip4.style.filter = "grayscale(0)"
-        chip5.style.filter = "grayscale(0)"
-    }
-});
+// chip2.addEventListener("click", function pickChip2() {
+//     if (betAmount + chipWallet <= gambler.money) {
+//         chip2.classList.add("betChoice");
+//         chip1.classList.remove("betChoice");
+//         chip3.classList.remove("betChoice");
+//         chip4.classList.remove("betChoice");
+//         chip5.classList.remove("betChoice");
+//         chip2.style.filter = "grayscale(0.85)"
+//         chip1.style.filter = "grayscale(0)"
+//         chip3.style.filter = "grayscale(0)"
+//         chip4.style.filter = "grayscale(0)"
+//         chip5.style.filter = "grayscale(0)"
+//     }
+// });
 
 // Select Chip_3 as your bet
-chip3.addEventListener("click", function pickChip3() {
-    if (betAmount + valueOfChips <= gambler.money) {
-        chip3.classList.add("betChoice");
-        chip1.classList.remove("betChoice");
-        chip2.classList.remove("betChoice");
-        chip4.classList.remove("betChoice");
-        chip5.classList.remove("betChoice");
-        chip3.style.filter = "grayscale(0.74)"
-        chip1.style.filter = "grayscale(0)"
-        chip2.style.filter = "grayscale(0)"
-        chip4.style.filter = "grayscale(0)"
-        chip5.style.filter = "grayscale(0)"
-    }
-});
+// chip3.addEventListener("click", function pickChip3() {
+//     if (betAmount + chipWallet <= gambler.money) {
+//         chip3.classList.add("betChoice");
+//         chip1.classList.remove("betChoice");
+//         chip2.classList.remove("betChoice");
+//         chip4.classList.remove("betChoice");
+//         chip5.classList.remove("betChoice");
+//         chip3.style.filter = "grayscale(0.85)"
+//         chip1.style.filter = "grayscale(0)"
+//         chip2.style.filter = "grayscale(0)"
+//         chip4.style.filter = "grayscale(0)"
+//         chip5.style.filter = "grayscale(0)"
+//     }
+// });
 
 // Select Chip_4 as your bet
-chip4.addEventListener("click", function pickChip4() {
-    if (betAmount + valueOfChips <= gambler.money) {
-        chip4.classList.add("betChoice");
-        chip1.classList.remove("betChoice");
-        chip2.classList.remove("betChoice");
-        chip3.classList.remove("betChoice");
-        chip5.classList.remove("betChoice");
-        chip4.style.filter = "grayscale(0.75)"
-        chip1.style.filter = "grayscale(0)"
-        chip2.style.filter = "grayscale(0)"
-        chip3.style.filter = "grayscale(0)"
-        chip5.style.filter = "grayscale(0)"
-    }
-});
+// chip4.addEventListener("click", function pickChip4() {
+//     if (betAmount + chipWallet <= gambler.money) {
+//         chip4.classList.add("betChoice");
+//         chip1.classList.remove("betChoice");
+//         chip2.classList.remove("betChoice");
+//         chip3.classList.remove("betChoice");
+//         chip5.classList.remove("betChoice");
+//         chip4.style.filter = "grayscale(0.85)"
+//         chip1.style.filter = "grayscale(0)"
+//         chip2.style.filter = "grayscale(0)"
+//         chip3.style.filter = "grayscale(0)"
+//         chip5.style.filter = "grayscale(0)"
+//     }
+// });
 
 // Select Chip_5 as your bet
-chip5.addEventListener("click", function pickChip5 () {
-    if (betAmount + valueOfChips <= gambler.money) {
-        chip5.classList.add("betChoice");
-        chip1.classList.remove("betChoice");
-        chip2.classList.remove("betChoice");
-        chip3.classList.remove("betChoice");
-        chip4.classList.remove("betChoice");
-        chip5.style.filter = "grayscale(0.75)"
-        chip1.style.filter = "grayscale(0)"
-        chip2.style.filter = "grayscale(0)"
-        chip3.style.filter = "grayscale(0)"
-        chip4.style.filter = "grayscale(0)"
-    }
-});
+// chip5.addEventListener("click", function pickChip5 () {
+//     if (betAmount + chipWallet <= gambler.money) {
+//         chip5.classList.add("betChoice");
+//         chip1.classList.remove("betChoice");
+//         chip2.classList.remove("betChoice");
+//         chip3.classList.remove("betChoice");
+//         chip4.classList.remove("betChoice");
+//         chip5.style.filter = "grayscale(0.85)"
+//         chip1.style.filter = "grayscale(0)"
+//         chip2.style.filter = "grayscale(0)"
+//         chip3.style.filter = "grayscale(0)"
+//         chip4.style.filter = "grayscale(0)"
+//     }
+// });
 
 
 // Function that takes our SELECTED "betChoice", and now we click on a BET DIV to place the image
@@ -529,6 +592,9 @@ chip5.addEventListener("click", function pickChip5 () {
 //         event.target.appendChild(newImg);
 //       }
 //     });
+
+
+
 
 
 
