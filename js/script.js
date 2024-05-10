@@ -232,7 +232,7 @@ class Player {
     }
 }
 
-const gambler = new Player (1000)
+let gambler = new Player (1000)
 
 const valueOfChips = document.getElementById("chipsValue")
 valueOfChips.textContent = `Player Chips | Total Value: ${gambler.money}`
@@ -265,23 +265,25 @@ chips.forEach(chip => {
 
 
 
-// Create variable currentChip that reads if we have class="betChoice"
 // Variable to call the bets on the board
-const rouletteBets = document.querySelectorAll(".topRowBet, .middleSpaceBet, .bottomRowBet, .spaceBet, .outsideTop, .outsideBottom")
+const rouletteBets = document.querySelectorAll(".topRowBet, .middleRowBet, .bottomRowBet, .spaceBet, .outsideTop, .outsideBottom")
 
 // Why did getElementByClassName("betAmountThisRound") not work???
 const betAmountText = document.querySelector(".betAmountThisRound")
 
+// Variable to track total value of chips we have on the table
+// betAmount cannot exceed gambler.money
 let betAmount = 0;
 
 rouletteBets.forEach(rouletteBet => {
     rouletteBet.addEventListener("click", function() {
+        // Create variable currentChip that reads if we have class="betChoice"
         const currentChip = document.querySelector(".betChoice")
         if(currentChip) {
             // call money value of the currently selected chip
             const chipValue = parseInt(currentChip.getAttribute("data-value"));
             // conditional where betAmount (starts at 0) + the value of a chip must be less or equal to the total amount of money we have. Because we cannot bet more than we have.
-            if (betAmount + chipValue <= gambler.money) {
+            if (betAmount + chipValue <= chipWallet) {
                 // If the conditional is true, then allow the player to bet.
                 // Add the currentChip value to the betAmount so the game tracks we are below our total money
                 betAmount += chipValue 
@@ -292,16 +294,83 @@ rouletteBets.forEach(rouletteBet => {
                 // variable to create a new image
                 const placeNewChip = document.createElement("img");
                 placeNewChip.src = chipImg;
+                // add a class to the new image, so that we can remove the image later with our clearBets button
+                placeNewChip.className = "temporaryBet"
                 // Style of the chip when its on the board
                 placeNewChip.style.width = "30px"
                 placeNewChip.style.height = "30px"
                 rouletteBet.appendChild(placeNewChip);     
             } else {
-                alert("Cannot bet more than your total money.")
+                alert("Cannot bet this chip. Check current bet amount.")
             }
         }
     });
 });
+
+
+// FUNCTIONALITY for Clear Bets button. Remove all bets so player can change their bet before starting the round.
+
+// const clearBets = document.getElementById("removeBets")
+// clearBets.addEventListener("click", function() {
+//     const tempBets = document.querySelector(".temporaryBet")
+//     tempBets.remove();
+// })
+
+// The above works but essentially its an UNDO button. Pressing the button only removes the LAST bet placed
+
+// Try again to clear everything. Maybe forEach again?
+const clearBets = document.getElementById("removeBets")
+clearBets.addEventListener("click", function() {
+    const tempBets = document.querySelectorAll(".temporaryBet")
+    tempBets.forEach(tempBet => {
+        tempBet.remove();
+    });
+    // need to add update to current bet
+    // betAmount = 0 , sets interally tracked betAmount back to 0
+    betAmount = 0;
+    // update text on screen to 0 
+    betAmountText.textContent = `Current Bet: ${betAmount}`;
+});
+// ERROR tempBets.forEach is not a function
+// Solved after changing querySelector to querySelectorAll
+
+
+
+
+/* FUNCTIONALITY for Finalize Bets button. This button needs to....
+1) Subtract betAmount from gambler.money 
+2) Spin the wheel 
+3) Return a random value from an array of all possible bet choices 
+4) check to see if the random value equals payer bets 
+5) Update gambler.money on Win. If Win, roundPayout = betAmount * payoutType. Then, roundPayout += gambler.money */
+
+const playRound = document.getElementById("playRound")
+playRound.addEventListener("click", function() {
+    chipWallet -= betAmount;
+    betAmount = 0;
+    betAmountText = `Current Bet: ${betAmount}`;
+    valueOfChips.textContent = `Player Chips | Total Value: ${chipWallet}`
+});
+
+/* Error cant change const value - chipWallet = gambler.money
+ Maybe create new method in class.
+ updateWallet (afterBet) { 
+    this.money = afterBet
+ }
+
+then call this method
+afterBet = chipWallet (OR gambler.money) - betAmount;
+gambler.updateWallet(afterBet)
+*/
+
+
+
+
+
+
+
+
+
 
 
 // const rouletteBets = document.querySelectorAll('.topRowBet, .middleRowBet, .bottomRowBet, .spaceBet, .outsideTop, .outsideBottom');
