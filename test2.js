@@ -1,20 +1,58 @@
-let wheel = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
-// have wheel pick a random index number from the array
+let wheel = ["0", "00", 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 
-// function spinWheel() {
-//     let randomWheel = Math.floor(Math.random() * wheel.length)
-//     return wheel[randomWheel];
-// }
 
-// let roundResult = spinWheel(wheel);
-// console.log(roundResult);
+function spinWheel() {
+    let randomWheel = Math.floor(Math.random() * wheel.length)
+    return wheel[randomWheel];
+}
 
+// console.log(spinWheel());
 
 let payouts = {
     // 35 x bet + bet = win total
-    singleNumWin: ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],
+    singleBetWin: { 
+        singleNumWinZero: ["0"],
+        singleNumZeroZero: ["00"],
+        singleNumOne: [1],
+        singleNumTwo: [2],
+        singleNumThree: [3],
+        singleNumFour: [4],
+        singleNumFive: [5],
+        singleNumSix: [6],
+        singleNumSeven: [7],
+        singleNumEight: [8],
+        singleNumNine: [9],
+        singleNumTen: [10],
+        singleNumEleven: [11],
+        singleNumTwelve: [12],
+        singleNumThirteen: [13],
+        singleNumFourt: [14],
+        singleNumFifth: [15],
+        singleNumSixth: [16],
+        singleNumSeventh: [17],
+        singleNumEighteen: [18],
+        singleNumnNineth: [19],
+        singleNumTwenty: [20],
+        singleNumTwentyOne: [21],
+        singleNumTwentyTwo: [22],
+        singleNumTwentyThree: [23],
+        singleNumTwentyFour: [24],
+        singleNumTwentyFive: [25],
+        singleNumTwentySix: [26],
+        singleNumTwentySeven: [27],
+        singleNumTwentyEight: [28],
+        singleNumTwentyNine: [29],
+        singleNumThirty: [30],
+        singleNumThirtyOne: [31],
+        singleNumThirtyTwo: [32],
+        singleNumThirtyThree: [33],
+        singleNumThirtyFour: [4],
+        singleNumThirtyFive: [35],
+        singleNumThirtySix: [36],
+        // ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],
+    },
     // 17 x bet + bet = win total
-    doubleNumWin: {
+    doubleBet: {
             twoA: [1,2],
             twoB: [1,4],
             twoC: [2,3],
@@ -71,10 +109,10 @@ let payouts = {
             twoBb: [32,35],
             twoBc: [33,36],
             twoBd: [34,35],
-            twoBe: [35,36]
+            twoBe: [35,36],
     },
     // 11 x bet + bet = win total
-    threeNumWin: {
+    threeBet: {
         threeA: [1,2,3],
         threeB: [4,5,6],
         threeC: [7,8,9],
@@ -89,8 +127,8 @@ let payouts = {
         threeL: [34,35,36]
     },
     // 8 x bet + bet = win total
-    fourNumWin: {
-        fourA: [1,2,3,4],
+    fourBet: {
+        fourA: [1,2,4,5],
         fourB: [2,3,5,6],
         fourC: [4,5,7,8],
         fourD: [5,6,8,9],
@@ -113,14 +151,20 @@ let payouts = {
         fourU: [31,32,34,35],
         fourV: [32,33,35,36],
     },
+    // Never made a slot for the five Num bet (6 to 1) [0, 00, 1, 2, 3] so its deleted
     // 5 x bet + bet = win total
-    sixNumWin: {
+    sixBet: {
         sixA: [1,2,3,4,5,6],
-        sixB: [7,8,9,10,11,12],
-        sixC: [13,14,15,16,17,18],
-        sixD: [19,20,21,22,23,24],
-        sixE: [25,26,27,28,29,30],
-        sixF: [31,32,33,34,35,36]
+        sixB: [4,5,6,7,8,9],
+        sixC: [7,8,9,10,11,12],
+        sixD: [10,11,12,13,14,15],
+        sixE: [13,14,15,16,17,18,19],
+        sixF: [16,17,18,19,20,21],
+        sixG: [19,20,21,22,23,24],
+        sixH: [22,23,24,25,26,27],
+        sixI: [25,26,27,28,29,30],
+        sixJ: [28,29,30,31,32,33],
+        sixK: [31,32,33,34,35,36]
     },
     // 2 x bet + bet = win total (aka bet x 3)
     outsideTopWin: {
@@ -142,12 +186,30 @@ let payouts = {
     }
 }
 
+let matchingPayouts = [];
 
-function randomPayout() {
-    const keys = Object.keys(payouts);
-    let randomIndex = Math.floor(Math.random() * keys.length)
-    return keys[randomIndex];
+
+function checkPayout(result, payouts) {
+    for (let key in payouts) {
+        if (Array.isArray(payouts[key])) {
+            if (payouts[key].includes(result)) {
+                matchingPayouts.push(key);
+            }
+        } else {
+            for (let subKey in payouts[key]) {
+                if (payouts[key][subKey].includes(result)) {
+                    matchingPayouts.push(subKey);
+                }
+            }
+        }
+    }
+    return matchingPayouts
 }
 
-let roundResult = randomPayout();
-console.log(roundResult);
+// let result = spinWheel();
+// let result = 25;
+let result = spinWheel();
+console.log(result)
+let payout = checkPayout(result, payouts);
+// console.log(`Payout for ${result} is ${payout.join(",")}`)
+console.log(matchingPayouts)

@@ -300,7 +300,7 @@ rouletteBets.forEach(rouletteBet => {
                 const placeNewChip = document.createElement("img");
                 placeNewChip.src = chipImg;
                 // add a class to the new image, so that we can remove the image later with our clearBets button
-                placeNewChip.className = "temporaryBet"
+                placeNewChip.className = "temporaryBet playerBet"
                 // Style of the chip when its on the board
                 placeNewChip.style.width = "30px"
                 placeNewChip.style.height = "30px"
@@ -371,16 +371,61 @@ function newMoneyTotal() {
 const playRound = document.getElementById("playRound")
 playRound.addEventListener("click", function playRound() {
     newMoneyTotal();
-    randomPayout();
+    roundResult = spinWheel();
+    checkPayout();
     checkCondition();
     removeChips();
 });
 
+function moneyAfterWin() {
+    chipWallet += roundWinnings;
+    valueOfChips.textContent = `Player Chips | Total Value: ${chipWallet}`;
+}
 // some animation to spin a wheell
 
 let payouts = {
     // 35 x bet + bet = win total
-    singleNumWin: ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],
+    singleBetWin: { 
+        singleNumWinZero: ["0"],
+        singleNumZeroZero: ["00"],
+        singleNumOne: [1],
+        singleNumTwo: [2],
+        singleNumThree: [3],
+        singleNumFour: [4],
+        singleNumFive: [5],
+        singleNumSix: [6],
+        singleNumSeven: [7],
+        singleNumEight: [8],
+        singleNumNine: [9],
+        singleNumTen: [10],
+        singleNumEleven: [11],
+        singleNumTwelve: [12],
+        singleNumThirteen: [13],
+        singleNumFourt: [14],
+        singleNumFifth: [15],
+        singleNumSixth: [16],
+        singleNumSeventh: [17],
+        singleNumEighteen: [18],
+        singleNumnNineth: [19],
+        singleNumTwenty: [20],
+        singleNumTwentyOne: [21],
+        singleNumTwentyTwo: [22],
+        singleNumTwentyThree: [23],
+        singleNumTwentyFour: [24],
+        singleNumTwentyFive: [25],
+        singleNumTwentySix: [26],
+        singleNumTwentySeven: [27],
+        singleNumTwentyEight: [28],
+        singleNumTwentyNine: [29],
+        singleNumThirty: [30],
+        singleNumThirtyOne: [31],
+        singleNumThirtyTwo: [32],
+        singleNumThirtyThree: [33],
+        singleNumThirtyFour: [4],
+        singleNumThirtyFive: [35],
+        singleNumThirtySix: [36],
+        // ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],
+    },
     // 17 x bet + bet = win total
     doubleBet: {
             twoA: [1,2],
@@ -439,7 +484,7 @@ let payouts = {
             twoBb: [32,35],
             twoBc: [33,36],
             twoBd: [34,35],
-            twoBe: [35,36]
+            twoBe: [35,36],
     },
     // 11 x bet + bet = win total
     threeBet: {
@@ -458,7 +503,7 @@ let payouts = {
     },
     // 8 x bet + bet = win total
     fourBet: {
-        fourA: [1,2,3,4],
+        fourA: [1,2,4,5],
         fourB: [2,3,5,6],
         fourC: [4,5,7,8],
         fourD: [5,6,8,9],
@@ -485,11 +530,16 @@ let payouts = {
     // 5 x bet + bet = win total
     sixBet: {
         sixA: [1,2,3,4,5,6],
-        sixB: [7,8,9,10,11,12],
-        sixC: [13,14,15,16,17,18],
-        sixD: [19,20,21,22,23,24],
-        sixE: [25,26,27,28,29,30],
-        sixF: [31,32,33,34,35,36]
+        sixB: [4,5,6,7,8,9],
+        sixC: [7,8,9,10,11,12],
+        sixD: [10,11,12,13,14,15],
+        sixE: [13,14,15,16,17,18,19],
+        sixF: [16,17,18,19,20,21],
+        sixG: [19,20,21,22,23,24],
+        sixH: [22,23,24,25,26,27],
+        sixI: [25,26,27,28,29,30],
+        sixJ: [28,29,30,31,32,33],
+        sixK: [31,32,33,34,35,36]
     },
     // 2 x bet + bet = win total (aka bet x 3)
     outsideTopWin: {
@@ -529,14 +579,265 @@ let payouts = {
 let wheel = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 // have wheel pick a random index number from the array
 
-// function spinWheel() {
-//     let randomWheel = Math.floor(Math.random() * wheel.length)
-//     return wheel[randomWheel];
+function spinWheel() {
+    let randomWheel = Math.floor(Math.random() * wheel.length)
+    return wheel[randomWheel];
+}
+
+let matchingPayouts = []
+
+function checkPayout(result, payouts) {
+    for (let key in payouts) {
+        if (Array.isArray(payouts[key])) {
+            if (payouts[key].includes(result)) {
+                matchingPayouts.push(key);
+            }
+        } else {
+            for (let subKey in payouts[key]) {
+                if (payouts[key][subKey].includes(result)) {
+                    matchingPayouts.push(subKey);
+                }
+            }
+        }
+    }
+    return matchingPayouts.length ? matchingPayouts : ["No payout"];
+}
+
+let result = spinWheel();
+let payout = checkPayout(result, payouts);
+
+// function checkPayout(result, payouts) {
+//     for (let key in payouts) {
+//         if (Array.isArray(payouts[key])) {
+//             if (payouts[key].includes(result)) {
+//                 matchingPayouts.push(key);
+//             }
+//         } else {
+//             for (let subKey in payouts[key]) {
+//                 if (payouts[key][subKey].includes(result)) {
+//                     matchingPayouts.push(subKey);
+//                 }
+//             }
+//         }
+//     }
+//     return matchingPayouts;
 // }
 
-// let roundResult = spinWheel(wheel);
+// function checkPayout(result, payouts) {
+//     for (let key in payouts) {
+//         for (let subKey in payouts[key]) {
+//             if (payouts[key][subKey].includes(result)) {
+//                 matchingPayouts.push(subKey);
+//             }
+//         }
+//     }   return matchingPayouts
+// }
 
-// document.querySelectorAll(".betChoice").forEach(bet => {
+
+
+// function checkCondition() {
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         const betCategory = bet.parentElement.classList;
+//         if (betCategory.contains(roundResult) && matchingPayouts.contains(roundResult)) {
+//             alert(`The ball landed on ${roundResult}. You win`)
+//         } else {
+//             alert(`The ball landed on ${roundResult}. You lose`)
+//         }
+//     });
+// };
+
+// function checkCondition() {
+//     let conditionAlert = false;
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         const betCategory = bet.parentElement.classList;
+//         if (betCategory.contains(roundResult) && matchingPayouts.contains(roundResult)) {
+//             conditionAlert = true;
+//         }
+//     });
+//     if (conditionAlert) {
+//         alert(`The ball landed on ${roundResult}. You win`)
+//     } else {
+//         alert(`The ball landed on ${roundResult}. You lose`)
+//     }
+// };
+
+
+// function checkCondition() {
+//     let conditionAlert = false;
+//     let payoutValues = matchingPayouts.values();
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         const betCategory = bet.parentElement.classList;
+//         if (betCategory.contains("outsideTopWin") &&  matchingPayouts.includes("dozenOneWin") || matchingPayouts.includes("dozenTwoWin") || matchingPayouts.includes("dozenThreeWin") || matchingPayouts.includes("topRowWin") || matchingPayouts.includes("middleRowWin") || matchingPayouts.includes("bottomRowWin")) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 2 to 1`);
+//             roundWinnings = (betAmount * 3);
+//             moneyAfterWin(); 
+//         }
+//         if (betCategory.contains(".outsideBottomWin") && payoutValues.contains(payouts.outsideBottomWin)) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 1 to 1`);
+//             roundWinnings = (betAmount * 2);
+//             moneyAfterWin();
+//         } 
+//         if (betCategory.contains(".sixBet") && payoutValues.contains(payouts.sixBet)) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 5 to 1`);
+//             roundWinnings = (betAmount * 6);
+//             moneyAfterWin();
+//         }
+//         if (betCategory.contains(".fourBet") && payoutValues.contains(payouts.fourBet)) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 8 to 1`);
+//             roundWinnings = (betAmount * 9);
+//             moneyAfterWin();
+//         }
+//         if (betCategory.contains(".threeBet") && payoutValues.contains(payouts.threeBet)) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 11 to 1`);
+//             roundWinnings = (betAmount * 12);
+//             moneyAfterWin();
+//         }
+//         if (betCategory.contains(".doubleBet") && payoutValues.contains(payouts.doubleBet)) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 17 to 1`);
+//             roundWinnings = (betAmount * 18);
+//             moneyAfterWin();
+//         }
+//         if (betCategory.contains(".singleNumWin") && payoutValues.contains(payouts.singleNumWin)) {
+//             conditionAlert = true;
+//             alert(`The ball landed on ${roundResult}. You won, 35 to 1`);
+//             roundWinnings = (betAmount * 36);
+//             moneyAfterWin();
+//         } else {
+//             alert(`The ball landed on ${roundResult}. You lose.`)
+//         }
+//     });
+// };
+
+
+// function checkCondition() {
+//     let win = false;
+//     let lose = true;
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         const betCategory = bet.parentElement.classList;
+//         if (betCategory.contains("outsideTopWin")) {
+//             if (matchingPayouts.includes("dozenOneWin") || matchingPayouts.includes("dozenTwoWin") || matchingPayouts.includes("dozenThreeWin") || matchingPayouts.includes("topRowWin") || matchingPayouts.includes("middleRowWin") || matchingPayouts.includes("bottomRowWin")) {
+//                 win = true;
+//                 lose = false;
+//             }
+//         } else if (betCategory.contains("outsideBottomWin")) {
+//             if (matchingPayouts.includes("firstHalfWin") || matchingPayouts.includes("secondHalfWin") || matchingPayouts.includes("redWin") || matchingPayouts.includes("blackWin") || matchingPayouts.includes("evenWin") || matchingPayouts.includes("oddWin")) {
+//                 win = true;
+//                 lose = false;
+//             }
+//         }
+//     });
+
+//     if (win) {
+//         if (document.querySelectorAll(".playerBet").forEach(bet => bet.parentElement.classList.contains("outsideBottomWin"))) {
+//             alert(`The ball landed on ${roundResult}. You won, 3 to 1`);
+//             roundWinnings = (betAmount * 3);
+//         } else {
+//             alert(`The ball landed on ${roundResult}. You won, 2 to 1`);
+//             roundWinnings = (betAmount * 3);
+//         }
+//         moneyAfterWin();
+//     } else if (lose) {
+//         alert(`The ball landed on ${roundResult}. You lose`);
+//     }
+// };
+
+// function checkCondition() {
+//     let win = false;
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         const category = bet.parentElement.classList;
+//         category.forEach(className => {
+//             if (matchingPayouts.includes(className)) {
+//                 win = true;
+//             }
+//         });
+//     });
+    
+
+//     if (win) {
+//         if (document.querySelectorAll(".playerBet").forEach(bet => bet.parentElement.classList.contains("outsideBottomWin"))) {
+//             alert(`The ball landed on ${roundResult}. You won, 3 to 1`);
+//             roundWinnings = (betAmount * 3);
+//         } else {
+//             alert(`The ball landed on ${roundResult}. You won, 2 to 1`);
+//             roundWinnings = (betAmount * 3);
+//         }
+//         moneyAfterWin();
+//     } else {
+//         alert(`The ball landed on ${roundResult}. You lose`);
+//     }
+// };
+
+// let playerBet = document.querySelector(".playerBet");
+
+function checkCondition() {
+    let win = false;
+    let lastClass = null;
+
+    document.querySelectorAll(".playerBet").forEach(bet => {
+        lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
+        if (matchingPayouts.includes(lastClass)) {
+            win = true;
+        }   
+    });
+    if (win) {
+        // if (lastClass === "dozenOneWin" || lastClass === "dozenTwoWin" || lastClass === "dozenThreeWin" || lastClass === "topRowWin" || lastClass === "middleRowWin" || lastClass === "bottomRowWin" ) {
+        if (Object.keys(payouts.outsideTopWin).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won, 2 to 1`);
+            roundWinnings = (betAmount * 3);
+        // } else if (lastClass === "firstHalfWin" || lastClass === "secondHalfWin" || lastClass === "redWin" || lastClass === "blackWin" || lastClass === "evenWin" || lastClass === "oddWin") {
+        } else if (Object.keys(payouts.outsideBottomWin).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won, 1 to 1`);
+            roundWinnings = (betAmount * 2);
+        } else if (Object.keys(payouts.sixBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won, 5 to 1`);
+            roundWinnings = (betAmount * 6);
+        } else if (Object.keys(payouts.fourBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won, 8 to 1`);
+            roundWinnings = (betAmount * 9);
+        } else if (Object.keys(payouts.threeBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 11 to 1`);
+            roundWinnings = (betAmount * 12);
+        } else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won, 17 to 1`);
+            roundWinnings = (betAmount * 18);
+        } else if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won, 35 to 1`);
+            roundWininngs = (betAmount * 36);
+        }
+        moneyAfterWin();
+    } else {
+        alert(`The ball landed on ${roundResult}. You lose`);
+    }
+};
+
+    // if (conditionAlert) {
+    //     alert(`The ball landed on ${roundResult}. You win`)
+    // } else {
+    //     alert(`The ball landed on ${roundResult}. You lose`)
+    // }
+
+
+// Add subkeys into classes of each bet 
+
+
+// document.querySelectorAll(".playerBet").forEach(bet => {
+//     const betCategory = bet.parentElement.classList;
+//     if (betCategory.contains(roundResult)) {
+//         alert("You won the round!");
+
+//     } else {
+//         alert("You lost. Better luck next time");
+//     }
+// });
+
+
+// document.querySelectorAll(".playerBet").forEach(bet => {
 //     const betCategory = bet.parentElement.id;
 //     if (roundResult == 1 && betCategory.includes(roundResult)) {
 //         alert("You won the round!");
@@ -549,25 +850,47 @@ let wheel = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,2
 
 
 
-function randomPayout() {
-    const keys = Object.keys(payouts);
-    let randomIndex = Math.floor(Math.random() * keys.length)
-    return keys[randomIndex];
-}
+// Spin Wheel get random num
+// Check if random num and .playerBet is included in payout VALUE
+// If yes, give player winnings.
 
-let roundResult = randomPayout();
-console.log(roundResult);
 
-function checkCondition() {
-document.querySelectorAll(".betChoice").forEach(bet => {
-    const betCategory = bet.parentElement.classList;
-    if (betCategory.contains(randomPayout)) {
-        alert("You won the round!");
-    } else {
-        alert("You lost. Better luck next time");
-    }
-    });
-};
+
+
+// function randomPayout() {
+//     const keys = Object.keys(payouts);
+//     let randomIndex = Math.floor(Math.random() * keys.length)
+//     return keys[randomIndex];
+// }
+
+// console.log(roundResult);
+
+// function checkCondition() {
+// let roundResult = randomPayout();
+// document.querySelectorAll(".betChoice").forEach(bet => {
+//     const betCategory = bet.parentElement.classList;
+//     if (betCategory.contains(roundResult)) {
+//         alert("You won the round!");
+//     } else {
+//         alert("You lost. Better luck next time");
+//     }
+//     });
+// };
+
+
+
+// const roundResult = randomPayout();
+
+// function checkCondition() {
+//     document.querySelectorAll('.playerBet').forEach(bet => {
+//         const betCategory = bet.parentElement.classList;
+//         if (betCategory.contains(roundResult)) {
+//             console.log(`You win! The result is ${roundResult}`);
+//         } else {
+//             console.log(`You lose. The result is ${roundResult}`);
+//         }
+//     });
+// };
 
 // .includes vs .contains
 
