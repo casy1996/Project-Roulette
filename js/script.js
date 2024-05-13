@@ -373,8 +373,10 @@ playRound.addEventListener("click", function playRound() {
     newMoneyTotal();
     roundResult = spinWheel();
     checkPayout();
-    checkCondition();
-    removeChips();
+    setTimeout(() => {
+        checkCondition();   
+        removeChips();
+    }, 0);
 });
 
 function moneyAfterWin() {
@@ -562,20 +564,6 @@ let payouts = {
 }
 
 
-
-// let wheel = {
-//     zero: ["0","00"],
-//     nonZeroRed: {
-//         num: [1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36],
-//         color: "red"
-//     },
-//     nonZeroBlack: {
-//         num: [2,4,6,8,10,11,13,15,17,20,22,24,26,28,29,31,33,35],
-//         color: "black"
-//     }
-// }
-
-
 let wheel = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36]
 // have wheel pick a random index number from the array
 
@@ -584,6 +572,7 @@ function spinWheel() {
     return wheel[randomWheel];
 }
 
+// after random number is generated, array is generated of all payouts.key's keys
 let matchingPayouts = []
 
 function checkPayout(result, payouts) {
@@ -775,46 +764,499 @@ let payout = checkPayout(result, payouts);
 
 // let playerBet = document.querySelector(".playerBet");
 
+// function checkCondition() {
+//     let win = false;
+//     let lastClass = null;
+
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
+//         if (matchingPayouts.includes(lastClass)) {
+//             win = true;
+//         }   
+//     });
+//     if (win) {
+//         if (Object.keys(payouts.outsideTopWin).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 2 to 1`);
+//             roundWinnings = (betAmount * 3);
+//         } else if (Object.keys(payouts.outsideBottomWin).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 1 to 1`);
+//             roundWinnings = (betAmount * 2);
+//         } else if (Object.keys(payouts.sixBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 5 to 1`);
+//             roundWinnings = (betAmount * 6);
+//         } else if (Object.keys(payouts.fourBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 8 to 1`);
+//             roundWinnings = (betAmount * 9);
+//         } else if (Object.keys(payouts.threeBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won 11 to 1`);
+//             roundWinnings = (betAmount * 12);
+//         } else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 17 to 1`);
+//             roundWinnings = (betAmount * 18);
+//         } else if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 35 to 1`);
+//             roundWininngs = (betAmount * 36);
+//         }
+//         moneyAfterWin();
+//     } else {
+//         alert(`The ball landed on ${roundResult}. You lose`);
+//     }
+// };
+
+// function checkCondition() {
+//     let win = false;
+//     let lastClass = null;
+
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
+//         if (matchingPayouts.includes(lastClass)) {
+//             win = true;
+//         }
+//     }) 
+//     if (win) {
+//         singleBetArray();
+//         doubleBetArray();
+//         threeBetArray();
+//         fourBetArray();
+//         sixBetArray();
+//         outsideTopArray();
+//         outsideBottomArray();
+//     } else {
+//         alert(`The ball landed on ${roundResult}. You lost the round.`);
+//     }
+// };
+
+const betNumbers = {
+    "0": ["singleNumWinZero"],
+    "00": ["singleNumZeroZero"],
+    1: ['singleNumOne','twoA','twoB','threeA','fourA','sixA','dozenOneWin', 'bottomRowWin','firstHalfWin','redWin','oddWin'],
+    2: ['singleNumTwo','twoA','twoC','twoD','threeA','fourA','fourB','sixA','dozenOneWin','middleRowWin','firstHalfWin', 'blackWin','evenWin'],
+    3: ['singleNumThree','twoC','twoE','threeA','fourB','sixA','dozenOneWin','topRowWin','firstHalfWin','redWin','oddWin'],
+    4: ['singleNumFour','singleNumThirtyFour','twoB','twoF','twoG','threeB','fourA','fourC','sixA','sixB','dozenOneWin','bottomRowWin','firstHalfWin','blackWin','evenWin'],
+    5: ['singleNumFive','twoD','twoF','twoH','twoI','threeB','fourA','fourB','fourC','fourD','sixA','sixB','dozenOneWin','middleRowWin','firstHalfWin','redWin','oddWin'],
+    6: ['singleNumSix','twoE','twoH','twoJ','threeB','fourB','fourD','sixA','sixB','dozenOneWin','topRowWin','firstHalfWin','blackWin','evenWin'],
+    7: ['singleNumSeven','twoG','twoK','twoL','threeC','fourC','fourE','sixB','sixC','dozenOneWin','bottomRowWin','firstHalfWin','redWin','oddWin'],
+    8: ['singleNumEight','twoI','twoK','twoM','twoN','threeC','fourC','fourD','fourE','fourF','sixB','sixC','dozenOneWin','middleRowWin','firstHalfWin','blackWin','evenWin'],
+    9: ['singleNumNine','twoJ','twoM','twoO','threeC','fourD','fourF','sixB','sixC','dozenOneWin','topRowWin','firstHalfWin','redWin','oddWin'],
+    10: ['singleNumTen','twoL','twoP','twoQ','threeD','fourE','fourG','sixC','sixD','dozenOneWin','bottomRowWin', 'firstHalfWin','blackWin','evenWin'],
+    11: ['singleNumEleven','twoN','twoP','twoR','twoS','threeD','fourE','fourF','fourG','fourH','sixC','sixD','dozenOneWin','middleRowWin','firstHalfWin','blackWin','oddWin'],
+    12: ['singleNumTwelve','twoO','twoR','twoT','threeD','fourF','fourH','sixC','sixD','dozenOneWin','dozenTwoWin','topRowWin','firstHalfWin','redWin','evenWin'],
+    13: ['singleNumThirteen','twoQ','twoU','twoV','threeE','fourG','fourI','sixD','sixE','dozenTwoWin','bottomRowWin','firstHalfWin','blackWin','oddWin'],
+    14: ['singleNumFourt','twoS','twoU','twoW','twoX','threeE','fourG','fourH','fourI','fourJ','sixD','sixE','dozenTwoWin','middleRowWin','firstHalfWin','redWin','evenWin'],
+    15: ['singleNumFifth','twoT','twoW','twoY','threeE','fourH','fourJ','sixD','sixE','dozenTwoWin','topRowWin','firstHalfWin','blackWin','oddWin'],
+    16: ['singleNumSixth', 'twoV','twoZ','twoAa','threeF','fourI','fourK','sixE','sixF','dozenTwoWin','bottomRowWin','firstHalfWin','redWin','evenWin'],
+    17: ['singleNumSeventh','twoX','twoZ','twoAb','twoAc','threeF','fourI','fourJ','fourK','fourL','sixE','sixF','dozenTwoWin','middleRowWin','firstHalfWin','blackWin','oddWin'],
+    18: ['singleNumEighteen','twoY','twoAb','twoAd','threeF','fourJ','fourL','sixE','sixF','dozenTwoWin','topRowWin','firstHalfWin','redWin','evenWin'],
+    19: ['singleNumnNineth','twoAa','twoAe','twoAf','threeG','fourK','fourM','sixE','sixF','sixG','dozenTwoWin','bottomRowWin','secondHalfWin','redWin','oddWin'],
+    20: ['singleNumTwenty','twoAc','twoAe','twoAg','twoAh','threeG','fourK','fourL','fourM','fourN','sixF','sixG','dozenTwoWin','middleRowWin','secondHalfWin',   'blackWin','evenWin'],
+    21: ['singleNumTwentyOne','twoAd','twoAg','twoAi','threeG','fourL','fourN','sixF','sixG','dozenTwoWin','topRowWin','secondHalfWin','redWin','oddWin'],
+    22: ['singleNumTwentyTwo','twoAf','twoAj','twoAk','threeH','fourM','fourO','sixG','sixH','dozenTwoWin','bottomRowWin','secondHalfWin','blackWin','evenWin'],
+    23:['singleNumTwentyThree','twoAh','twoAj','twoAl','twoAm','threeH','fourM','fourN','fourO','fourP','sixG','sixH','dozenTwoWin','middleRowWin','secondHalfWin',        'redWin','oddWin'],
+    24: ['singleNumTwentyFour','twoAi','twoAl','twoAn','threeH','fourN','fourP','sixG','sixH','dozenTwoWin','topRowWin','secondHalfWin','blackWin','evenWin'],
+    25: ['singleNumTwentyFive','twoAk','twoAo','twoAp','threeI','fourO','fourQ','sixH','sixI','dozenThreeWin','bottomRowWin','secondHalfWin','redWin','oddWin'],
+    26: ['singleNumTwentySix','twoAm','twoAo','twoAq','twoAr','threeI','fourO','fourP','fourQ','fourR','sixH','sixI','dozenThreeWin','middleRowWin','secondHalfWin','blackWin','evenWin'],
+    27: ['singleNumTwentySeven','twoAn','twoAq','twoAs','threeI','fourP','fourR','sixH','sixI','dozenThreeWin','topRowWin','secondHalfWin','redWin','oddWin'],
+    28: ['singleNumTwentyEight','twoAp','twoAt','twoAu','threeJ','fourQ','fourS','sixI','sixJ','dozenThreeWin','bottomRowWin','secondHalfWin','blackWin','evenWin'],
+    29: ['singleNumTwentyNine', 'twoAr','twoAt','twoAv','twoAw','threeJ','fourQ','fourR','fourS','fourT','sixI','sixJ','dozenThreeWin','middleRowWin','secondHalfWin','blackWin','oddWin'],
+    30: ['singleNumThirty','twoAs','twoAv','twoAx','threeJ','fourR','fourT','sixI','sixJ','dozenThreeWin','topRowWin','secondHalfWin','redWin','evenWin'],
+    31: ['singleNumThirtyOne','twoAu','twoAy','twoAz','threeK','fourS','fourU','sixJ','sixK','dozenThreeWin','bottomRowWin','secondHalfWin','blackWin','oddWin'],
+    32: ['singleNumThirtyTwo', 'twoAw','twoAy','twoBa','twoBb','threeK','fourS','fourT','fourU','fourV','sixJ','sixK','dozenThreeWin','middleRowWin','secondHalfWin','redWin','evenWin'],
+    33: ['singleNumThirtyThree','twoAx','twoBa','twoBc','threeK','fourT','fourV','sixJ','sixK','dozenThreeWin','topRowWin','secondHalfWin','blackWin','oddWin'],
+    34: ['twoAz','twoBd','threeL','fourU','sixK','dozenThreeWin','bottomRowWin','secondHalfWin','redWin','evenWin'],
+    35: ['singleNumThirtyFive','twoBb','twoBd','twoBe','threeL','fourU','fourV','sixK','dozenThreeWin','middleRowWin','secondHalfWin','blackWin','oddWin'],
+    36: ['singleNumThirtySix','twoBc','twoBe','threeL','fourV','sixK','dozenThreeWin','topRowWin','secondHalfWin','redWin','evenWin'],
+}
+
 function checkCondition() {
     let win = false;
     let lastClass = null;
 
     document.querySelectorAll(".playerBet").forEach(bet => {
         lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
-        if (matchingPayouts.includes(lastClass)) {
+        let betSectionName = betNumbers[roundResult];
+        if (betSectionName && betSectionName.includes(lastClass)) {
             win = true;
-        }   
+        }
     });
+
     if (win) {
-        // if (lastClass === "dozenOneWin" || lastClass === "dozenTwoWin" || lastClass === "dozenThreeWin" || lastClass === "topRowWin" || lastClass === "middleRowWin" || lastClass === "bottomRowWin" ) {
-        if (Object.keys(payouts.outsideTopWin).includes(lastClass)) {
-            alert(`The ball landed on ${roundResult}. You won, 2 to 1`);
-            roundWinnings = (betAmount * 3);
-        // } else if (lastClass === "firstHalfWin" || lastClass === "secondHalfWin" || lastClass === "redWin" || lastClass === "blackWin" || lastClass === "evenWin" || lastClass === "oddWin") {
-        } else if (Object.keys(payouts.outsideBottomWin).includes(lastClass)) {
-            alert(`The ball landed on ${roundResult}. You won, 1 to 1`);
-            roundWinnings = (betAmount * 2);
-        } else if (Object.keys(payouts.sixBet).includes(lastClass)) {
-            alert(`The ball landed on ${roundResult}. You won, 5 to 1`);
-            roundWinnings = (betAmount * 6);
-        } else if (Object.keys(payouts.fourBet).includes(lastClass)) {
-            alert(`The ball landed on ${roundResult}. You won, 8 to 1`);
-            roundWinnings = (betAmount * 9);
-        } else if (Object.keys(payouts.threeBet).includes(lastClass)) {
+        if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 35 to 1`);
+            roundWinnings = (betAmount * 36);
+            moneyAfterWin();
+        }
+        else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 17 to 1`);
+            roundWinnings = (betAmount * 18);
+            moneyAfterWin();
+        }
+        else if (Object.keys(payouts.threeBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 11 to 1`);
             roundWinnings = (betAmount * 12);
-        } else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
-            alert(`The ball landed on ${roundResult}. You won, 17 to 1`);
-            roundWinnings = (betAmount * 18);
-        } else if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
-            alert(`The ball landed on ${roundResult}. You won, 35 to 1`);
-            roundWininngs = (betAmount * 36);
+            moneyAfterWin();
         }
-        moneyAfterWin();
+        else if (Object.keys(payouts.fourBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 8 to 1`);
+            roundWinnings = (betAmount * 9);
+            moneyAfterWin();
+        }
+        else if (Object.keys(payouts.sixBet).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 5 to 1`);
+            roundWinnings = (betAmount * 6);
+            moneyAfterWin();
+        }
+        else if (Object.keys(payouts.outsideTopWin).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 2 to 1`);
+            roundWinnings = (betAmount * 3);
+            moneyAfterWin();
+        }
+        else if (Object.keys(payouts.outsideBottomWin).includes(lastClass)) {
+            alert(`The ball landed on ${roundResult}. You won 1 to 1`);
+            roundWinnings = (betAmount * 2);
+            moneyAfterWin();
+        }
+        // singleBetArray(lastClass);
+        // doubleBetArray(lastClass);
+        // threeBetArray(lastClass);
+        // fourBetArray(lastClass);
+        // sixBetArray(lastClass);
+        // outsideTopArray(lastClass);
+        // outsideBottomArray(lastClass);
     } else {
-        alert(`The ball landed on ${roundResult}. You lose`);
+        alert(`The ball landed on ${roundResult}. You lost the round.`);
     }
 };
+
+
+
+
+
+function singleBetArray(lastClass) {
+    let times35 = Object.keys(payouts.singleBetWin).includes(lastClass);
+    if (times35) {
+        alert(`The ball landed on ${roundResult}. You won 35 to 1`)
+        roundWinnings = (betAmount * 36);
+    } 
+};
+
+
+function doubleBetArray(lastClass) {
+    let times18 = Object.keys(payouts.doubleBet).includes(lastClass);
+    if (times18) {
+        alert(`The ball landed on ${roundResult}. You won 17 to 1`);
+        roundWinnings = (betAmount * 18);
+    }
+};
+
+
+function threeBetArray(lastClass) {
+    let times12 = Object.keys(payouts.threeBet).includes(lastClass);
+    if (times12) {
+        alert(`The ball landed on ${roundResult}. You won 11 to 1`);
+        roundWinnings = (betAmount * 12);
+    }
+};
+
+
+function fourBetArray(lastClass) {
+    let times9 = Object.keys(payouts.fourBet).includes(lastClass);
+    if (times9) {
+        alert(`The ball landed on ${roundResult}. You won 8 to 1`);
+        roundWinnings = (betAmount * 9);
+    }
+};
+
+
+function sixBetArray(lastClass) {
+    let times6 = Object.keys(payouts.sixBet).includes(lastClass);
+    if (times6) {
+        alert(`The ball landed on ${roundResult}. You won 5 to 1`);
+        roundWinnings = (betAmount * 6);
+    }
+};
+
+
+function outsideTopArray(lastClass) {
+    let times3 = Object.keys(payouts.outsideTopWin).includes(lastClass);
+    if (times3) {
+        alert(`The ball landed on ${roundResult}. You won 2 to 1`);
+        roundWinnings = (betAmount * 3);
+    }
+};
+
+
+function outsideBottomArray(lastClass) {
+    let times2 = Object.keys(payouts.outsideBottomWin).includes(lastClass);
+    if (times2) {
+        alert(`The ball landed on ${roundResult}. You won 1 to 1`);
+        roundWinnings = (betAmount * 2);
+    }
+};
+
+
+// function singleBetArray(lastClass) {
+//     let singleArray = []
+//     for (let key in payouts.singleBetWin) {
+//         singleArray.push(key);
+//     }
+//     if (singleArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 35 to 1`)
+//         roundWinnings = (betAmount * 36);
+//     } 
+// };
+
+
+// function doubleBetArray(lastClass) {
+//     let doubleArray = []
+//     for (let key in payouts.doubleBet) {
+//         doubleArray.push(key);
+//     }
+//     if (doubleArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 17 to 1`);
+//         roundWinnings = (betAmount * 18);
+//     }
+// };
+
+
+// function threeBetArray(lastClass) {
+//     let threeArray = []
+//     for (let key in payouts.threeBet) {
+//         threeArray.push(key);
+//     }
+//     if (threeArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 11 to 1`);
+//         roundWinnings = (betAmount * 12);
+//     }
+// };
+
+
+// function fourBetArray(lastClass) {
+//     let fourArray = []
+//     for (let key in payouts.fourBet) {
+//         fourArray.push(key);
+//     }
+//     if (fourArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 8 to 1`);
+//         roundWinnings = (betAmount * 9);
+//     }
+// };
+
+
+// function sixBetArray(lastClass) {
+//     let sixArray = []
+//     for (let key in payouts.sixBet) {
+//         sixArray.push(key);
+//     }
+//     if (sixArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 5 to 1`);
+//         roundWinnings = (betAmount * 6);
+//     }
+// };
+
+
+// function outsideTopArray(lastClass) {
+//     let outTopArray = []
+//     for (let key in payouts.outsideTopWin) {
+//         outTopArray.push(key);
+//     }
+//     if (outTopArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 2 to 1`);
+//         roundWinnings = (betAmount * 3);
+//     }
+// };
+
+
+// function outsideBottomArray(lastClass) {
+//     let outBotArray = []
+//     for (let key in payouts.outsideBottomWin) {
+//         outBotArray.push(key);
+//     }
+//     if (outBotArray.includes(lastClass)) {
+//         alert(`The ball landed on ${roundResult}. You won 1 to 1`);
+//         roundWinnings = (betAmount * 2);
+//     }
+// };
+
+// let singleArrayPayouts = singleBetArray();
+// let doubleArrayPayouts = doubleBetArray();
+// let threeArrayPayouts = threeBetArray();
+// let fourArrayPayouts = fourBetArray();
+// let sixArrayPayouts = sixBetArray();
+// let outsideTopArrayPayouts = outsideTopArray();
+// let outsideBottomArrayPayouts = outsideBottomArray();
+
+
+// let lookForSingle = checkSingleNums();
+function checkSingleNums() {
+    for (let key in payouts.singleBetWin) {
+        return key
+    }
+};
+
+// let lookForDouble = checkDoubleNums();
+function checkDoubleNums() {
+    for (let key in payouts.doubleBet) {
+        return key
+    }
+};
+
+// let lookForThree = checkThreeNum();
+function checkThreeNum() {
+    for (let key in payouts.threeBet) { 
+        return key
+    }
+};
+
+// let lookForFour = checkFourNum();
+function checkFourNum() {
+    for (let key in payouts.fourBet) {
+        return key
+    }
+};
+
+// let lookForSix = checkSixNum();
+function checkSixNum() {
+    for (let key in payouts.sixBet) {
+        return key
+    }
+};
+
+// let lookForOutsideTop = checkOutsideTop();
+function checkOutsideTop() {
+    for (let key in payouts.outsideTopWin) {
+        return key
+    }
+};
+
+// let lookForOutsideBottom = checkOutsideBottom();
+function checkOutsideBottom() {
+    for (let key in payouts.outsideBottomWin) {
+        return key
+    }
+};
+
+
+// function checkCondition() {
+//     let win = false;
+//     let lastClass = null;
+
+//     document.querySelectorAll(".playerBet")
+// }
+
+
+// function checkCondition() {
+//     let win = false;
+//     let lastClass = null;
+
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
+//         if (matchingPayouts.includes(lastClass)) {
+//             win = true;
+//         }
+//     })
+//     if (win) {
+//         if (lastClass in payouts.singleBetWin) {
+//             // lookForSingle;
+//             checkSingleNums();
+//             if (key === lastClass) {
+//                 alert(`The ball landed on ${roundResult}. You won 35 to 1`)
+//                 roundWinnings = (betAmount * 36);
+//             }
+//         }
+//         else if (lastClass in payouts.doubleBet) {
+//             // lookForDouble;
+//             checkDoubleNums();
+//             if (key === lastClass) {
+//                 alert(`The ball landed on ${roundResult}. You won 17 to 1`)
+//                 roundWinnings = (betAmount * 18);
+//             }
+//         }
+//         else if (lastClass in payouts.threeBet) {
+//             // lookForThree;
+//             checkThreeNum();
+//             if (key === lastClass) {
+//                 alert(`The ball landed on ${roundResult}. You won 11 to 1`);
+//                 roundWinnings = (betAmount * 12);
+//             }
+//         }
+//         else if (lastClass in payouts.fourBet) {
+//             // lookForFour;
+//             checkFourNum();
+//             if (key === lastClass) {
+//                 alert(`The ball landed on ${roundResult}. You won 8 to 1`);
+//                 roundWinnings = (betAmount * 9);
+//             }
+//         }
+//         else if (lastClass in payouts.sixBet) {
+//             // lookForSix;
+//             checkSixNum();
+//             if (key === lastClass) {
+//                 alert(`The ball landed on ${roundResult}. You won 5 to 1`);
+//                 roundWinnings = (betAmount * 5);
+//             }
+//         }
+//         else if (lastClass in payouts.outsideTopWin) {
+//             // lookForOutsideTop;
+//             checkOutsideTop();
+//             if (key === lastClass) {
+//                 alert(`The ball landed on ${roundResult}. You won 2 to 1`);
+//                 roundWinnings = (betAmount * 3);
+//             }
+//         }
+//         else if (lastClass in payouts.outsideBottomWin) {
+//             // lookForOutsideBottom;
+//             checkOutsideBottom();
+//             if (key === lastClass) {
+//                 alert(`The ball landded on ${roundResult}. You won 1 to 1`);
+//                 roundWinnings = (betAmount * 2);
+//             }
+//         }
+//     } else {
+//         alert(`The ball landed on ${roundResult}. You lost the round.`);
+//     }
+// };
+
+
+
+// function checkCondition() {
+//     let win = false;
+//     let lastClass = null;
+
+//     document.querySelectorAll(".playerBet").forEach(bet => {
+//         lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
+//         if (matchingPayouts.includes(lastClass)) {
+//             win = true;
+//         }   
+//     });
+//     if (win) {
+//         if (lastClass === "dozenOneWin" || lastClass === "dozenTwoWin" || lastClass === "dozenThreeWin" || lastClass === "topRowWin" || lastClass === "middleRowWin" || lastClass === "bottomRowWin" ) {
+//             alert(`The landed on ${roundResult}. You won, 2 to 1`);
+//             roundWinnings = (betAmount * 3);
+//         } else if (lastClass === "firstHalfWin" || lastClass === "secondHalfWin" || lastClass === "redWin" || lastClass === "blackWin" || lastClass === "evenWin" || lastClass === "oddWin") {
+//             alert(`The ball landed on ${roundResult}. You won, 1 to 1`);
+//             roundWinnings = (betAmount * 2);
+//         } else if (lastClass ===  )
+//         } else if (Object.keys(payouts.sixBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 5 to 1`);
+//             roundWinnings = (betAmount * 6);
+//         } else if (Object.keys(payouts.fourBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 8 to 1`);
+//             roundWinnings = (betAmount * 9);
+//         } else if (Object.keys(payouts.threeBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won 11 to 1`);
+//             roundWinnings = (betAmount * 12);
+//         } else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 17 to 1`);
+//             roundWinnings = (betAmount * 18);
+//         } else if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
+//             alert(`The ball landed on ${roundResult}. You won, 35 to 1`);
+//             roundWinnings = (betAmount * 36);
+//         }
+//         moneyAfterWin();
+//     } else {
+//         alert(`The ball landed on ${roundResult}. You lose`);
+//     }
+// };
 
     // if (conditionAlert) {
     //     alert(`The ball landed on ${roundResult}. You win`)

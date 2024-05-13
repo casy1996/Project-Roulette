@@ -6,10 +6,7 @@ function spinWheel() {
     return wheel[randomWheel];
 }
 
-// console.log(spinWheel());
-
 let payouts = {
-    // 35 x bet + bet = win total
     singleBetWin: { 
         singleNumWinZero: ["0"],
         singleNumZeroZero: ["00"],
@@ -49,9 +46,7 @@ let payouts = {
         singleNumThirtyFour: [4],
         singleNumThirtyFive: [35],
         singleNumThirtySix: [36],
-        // ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],
     },
-    // 17 x bet + bet = win total
     doubleBet: {
             twoA: [1,2],
             twoB: [1,4],
@@ -111,7 +106,6 @@ let payouts = {
             twoBd: [34,35],
             twoBe: [35,36],
     },
-    // 11 x bet + bet = win total
     threeBet: {
         threeA: [1,2,3],
         threeB: [4,5,6],
@@ -126,7 +120,6 @@ let payouts = {
         threeK: [31,32,33],
         threeL: [34,35,36]
     },
-    // 8 x bet + bet = win total
     fourBet: {
         fourA: [1,2,4,5],
         fourB: [2,3,5,6],
@@ -151,8 +144,6 @@ let payouts = {
         fourU: [31,32,34,35],
         fourV: [32,33,35,36],
     },
-    // Never made a slot for the five Num bet (6 to 1) [0, 00, 1, 2, 3] so its deleted
-    // 5 x bet + bet = win total
     sixBet: {
         sixA: [1,2,3,4,5,6],
         sixB: [4,5,6,7,8,9],
@@ -166,7 +157,6 @@ let payouts = {
         sixJ: [28,29,30,31,32,33],
         sixK: [31,32,33,34,35,36]
     },
-    // 2 x bet + bet = win total (aka bet x 3)
     outsideTopWin: {
         dozenOneWin: [1,2,3,4,5,6,7,8,9,10,11,12],
         dozenTwoWin: [12,13,14,15,16,17,18,19,20,21,22,23,24],
@@ -175,7 +165,6 @@ let payouts = {
         middleRowWin: [2,5,8,11,14,17,20,23,26,29,32,35],
         bottomRowWin: [1,4,7,10,13,16,19,22,25,28,31,34],
     },
-    // 1 x bet + bet = win total (aka bet x 2)
     outsideBottomWin: {
         firstHalfWin: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
         secondHalfWin: [19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36],
@@ -203,13 +192,13 @@ function checkPayout(result, payouts) {
             }
         }
     }
-    return matchingPayouts
+    return matchingPayouts.length ? matchingPayouts : ["No payout"];
 }
 
 // let result = spinWheel();
-// let result = 25;
-let result = spinWheel();
+let result = 36;
 console.log(result)
 let payout = checkPayout(result, payouts);
-// console.log(`Payout for ${result} is ${payout.join(",")}`)
 console.log(matchingPayouts)
+
+
