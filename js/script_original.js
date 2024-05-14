@@ -282,6 +282,11 @@ let betAmount = 0;
 
 rouletteBets.forEach(rouletteBet => {
     rouletteBet.addEventListener("click", function() {
+
+        if(chipWallet === 0) {
+            alert("You're out of money. Press new game to play again!");
+            return;
+        }
         // Create variable currentChip that reads if we have class="betChoice"
         const currentChip = document.querySelector(".betChoice")
         if(currentChip) {
@@ -304,9 +309,9 @@ rouletteBets.forEach(rouletteBet => {
                 // Style of the chip when its on the board
                 placeNewChip.style.width = "30px"
                 placeNewChip.style.height = "30px"
-                rouletteBet.appendChild(placeNewChip);     
+                rouletteBet.appendChild(placeNewChip);    
             } else {
-                alert("Cannot bet this chip. Check current bet amount.")
+                alert("Cannot make bet. Bet amount would exceed player money.")
             }
         }
     });
@@ -349,6 +354,17 @@ function removeChips() {
     });
     betAmount = 0;
     betAmountText.textContent = `Current Bet: ${betAmount}`;
+    gameHistory("You removed your bets.");
+};
+
+function removeChipsAfterRound() {
+    const tempBets = document.querySelectorAll(".temporaryBet")
+    tempBets.forEach(tempBet => {
+        tempBet.remove();
+    });
+    betAmount = 0;
+    betAmountText.textContent = `Current Bet: ${betAmount}`;
+    
 };
 
 const clearBets = document.getElementById("removeBets")
@@ -372,10 +388,13 @@ const playRound = document.getElementById("playRound")
 playRound.addEventListener("click", function playRound() {
     newMoneyTotal();
     roundResult = spinWheel();
-    checkPayout();
+    // checkPayout();
     setTimeout(() => {
         checkCondition();   
-        removeChips();
+        removeChipsAfterRound();
+        if (chipWallet === 0) {
+            gameHistory(`Out of money. Press New Game to reset your wallet.`)
+        };
     }, 0);
 });
 
@@ -570,30 +589,97 @@ let wheel = ["0","00",1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,2
 function spinWheel() {
     let randomWheel = Math.floor(Math.random() * wheel.length)
     return wheel[randomWheel];
-}
+};
+
+
+let restartGame  = document.getElementById("newGameButton");
+restartGame.addEventListener("click", newGame);
+
+function newGame() {
+    chipWallet = 1000;
+    valueOfChips.textContent = `Player Chips | Total Value: ${chipWallet}`;
+    betAmount = 0;
+    betAmountText.textContent = `Current Bet: ${betAmount}`;
+    // gameText.value = `New game started!`
+    gameHistory("New game started!");
+};
+
+// function gameHistory(text) {
+//     let gameMessage = document.createElement("p");
+//     gameMessage.textContent = text;
+//     let textHistory = document.getElementById("textHistory");
+//     textHistory.appendChild(gameMessage);
+//     textHistory.scrollTop = textHistory.scrollHeight;
+// };
+
+function gameHistory(text, historyLimit = 7) {
+    let gameMessage = document.createElement("p");
+    gameMessage.textContent = text;
+    let textHistory = document.getElementById("textHistory");
+    if (textHistory.children.length >= historyLimit) {
+        textHistory.removeChild(textHistory.children[0]);
+    }
+    
+    textHistory.appendChild(gameMessage);
+    textHistory.scrollTop = textHistory.scrollHeight;
+};
+
+// let gameMessages = [];
+// function gameHistory(text) {
+//     gameMessages.push(text);
+//     let gameText = document.getElementById("textHistory");
+//     gameText.value = gameMessages.join('\n');
+//     gameText.scrollTop = gameText.scrollHeight;
+// };
+
+// function gameHistory(text) {
+//     let gameText = document.getElementById("textHistory");
+//     gameText.value += text + '\n';
+//     gameText.scrollTop = gameText.scrollHeight;
+// };
+// let currentLine = 0;
+
+// function gameHistory(text) {
+//     let gameText = document.getElementById("textHistory");
+//     let lines = gameText.value.split('\n');
+//     if (currentLine < lines.length) {
+//         lines[currentLine] = text;
+//     } else {
+//         lines.push(text);
+//     }
+//     gameText.value = lines.join('\n');
+//     currentLine++;
+//     if (currentLine >= 6) {
+//         currentLine = 0; 
+//     }
+//     gameText.scrollTop = gameText.scrollHeight;
+// };
+
+
+
 
 // after random number is generated, array is generated of all payouts.key's keys
-let matchingPayouts = []
+// let matchingPayouts = []
 
-function checkPayout(result, payouts) {
-    for (let key in payouts) {
-        if (Array.isArray(payouts[key])) {
-            if (payouts[key].includes(result)) {
-                matchingPayouts.push(key);
-            }
-        } else {
-            for (let subKey in payouts[key]) {
-                if (payouts[key][subKey].includes(result)) {
-                    matchingPayouts.push(subKey);
-                }
-            }
-        }
-    }
-    return matchingPayouts.length ? matchingPayouts : ["No payout"];
-}
+// function checkPayout(result, payouts) {
+//     for (let key in payouts) {
+//         if (Array.isArray(payouts[key])) {
+//             if (payouts[key].includes(result)) {
+//                 matchingPayouts.push(key);
+//             }
+//         } else {
+//             for (let subKey in payouts[key]) {
+//                 if (payouts[key][subKey].includes(result)) {
+//                     matchingPayouts.push(subKey);
+//                 }
+//             }
+//         }
+//     }
+//     return matchingPayouts.length ? matchingPayouts : ["No payout"];
+// }
 
-let result = spinWheel();
-let payout = checkPayout(result, payouts);
+// let result = spinWheel();
+// let payout = checkPayout(result, payouts);
 
 // function checkPayout(result, payouts) {
 //     for (let key in payouts) {
@@ -870,12 +956,17 @@ const betNumbers = {
 function checkCondition() {
     let win = false;
     let lastClass = null;
+    let winningBet = null;
+    let losingBet = null;
 
     document.querySelectorAll(".playerBet").forEach(bet => {
         lastClass = bet.parentElement.classList[bet.parentElement.classList.length - 1];
         let betSectionName = betNumbers[roundResult];
         if (betSectionName && betSectionName.includes(lastClass)) {
             win = true;
+            winningBet = bet;
+        } else {
+            losingBet = bet;
         }
     });
 
@@ -883,36 +974,43 @@ function checkCondition() {
         if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 35 to 1`);
             roundWinnings = (betAmount * 36);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 17 to 1`);
             roundWinnings = (betAmount * 18);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.threeBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 11 to 1`);
             roundWinnings = (betAmount * 12);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.fourBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 8 to 1`);
             roundWinnings = (betAmount * 9);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.sixBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 5 to 1`);
             roundWinnings = (betAmount * 6);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.outsideTopWin).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 2 to 1`);
             roundWinnings = (betAmount * 3);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.outsideBottomWin).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 1 to 1`);
             roundWinnings = (betAmount * 2);
+            gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         // singleBetArray(lastClass);
@@ -924,6 +1022,7 @@ function checkCondition() {
         // outsideBottomArray(lastClass);
     } else {
         alert(`The ball landed on ${roundResult}. You lost the round.`);
+        gameHistory(`You bet $${betAmount} on '${losingBet.parentElement.innerText.trim()}' and lost.`);
     }
 };
 
@@ -1656,6 +1755,7 @@ function checkOutsideBottom() {
 //         event.target.appendChild(newImg);
 //       }
 //     });
+
 
 
 

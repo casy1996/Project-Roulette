@@ -1,3 +1,5 @@
+/* ===================GAME PAGE=================== */
+
 * {
     margin: 0;
     border: 0;
@@ -12,9 +14,12 @@ h1 {
 body {
     background-color: rgb(174, 201, 186);
     background-color: rgb(87, 101, 93);
+    /* background-color: rgba(10, 35, 8, 0.762); */
+
 }
 
-/* MENU STYLE */
+/* ===================MENU STYLING=================== */
+
 #newGameButton {
     margin: 0px 0px 5px 20px;
 }
@@ -23,7 +28,8 @@ body {
     margin: 0px 0px 0px 20px;
 }
 
-/* CHIPS AND CHAT STYLING */
+/* ===================CHIPS AND CHAT=================== */
+
 
 .bottomBoxes {
     display: flex;
@@ -32,11 +38,14 @@ body {
 }
 
 #chatBox {
+    display: grid;
+    grid-template-columns: 1fr;
     height: 250px;
     width: 450px;
     font-size: 24px;
     font-weight: bold
 }
+
 
 #chipBox {
     height: 250px;
@@ -52,6 +61,30 @@ body {
     background-color: rgba(11, 62, 6, 0.176);
 }
 
+.textBoxStyle {
+    width: 450px;
+    height: 237px;
+    padding: 15px 0px 15px 0px;
+    /* border-radius: 10%; */
+    background-color: rgba(9, 45, 6, 0.176);
+}
+
+#textHistory {
+    border-radius: 0%;
+    width: 99%;
+    height: 100%;
+    /* color: rgba(243, 243, 243, 0.893); */
+    background-color: rgba(9, 45, 6, 0.3);
+}
+
+#textHistory p {
+    color: rgba(255, 255, 255, 0.928);
+    font-size: 20px;
+    padding: 5px;
+    text-align: left;
+    font-weight: normal;
+}
+
 .chips {
     /* padding: 20px 0px 0px 0px; */
     cursor: pointer;
@@ -61,39 +94,21 @@ body {
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.845);
 }
 
-/* #chip_1 {
 
-}
+/* ===================ROULETTE TABLE=================== */
 
-#chip_5 {
-
-}
-
-#chip_25 {
-
-}
-
-#chip_100 {
-
-}
-
-#chip_500 {
-
-}*/
-
-
-/* TABLE STYLING */
 
 .gameBody {
-    padding: 130px 0px 0px 0px;
-    height: 300px;
+    padding: 90px 0px 0px 0px;
+    height: 330px;
 
 }
 
 .gameTable {
     display: grid;
-    grid-template-columns: 80px 600px 80px;
-    grid-template-rows: 35px 15px 35px 15px 35px 15px 30px 30px;
+    grid-template-columns: 90px 700px 90px;
+    /* grid-template-rows: 35px 15px 35px 15px 35px 15px 30px 30px; */
+    grid-template-rows: 45px 25px 45px 25px 45px 25px 40px 40px;
     /* width: 51.3%; */
     margin: 0 auto;
     justify-content: center;
@@ -258,7 +273,8 @@ body {
 }
 
 
-/* BET BUTTON STYLING */
+/* ===================BET BUTTONS=================== */
+
 
 .gameOptions {
     display: flex;
