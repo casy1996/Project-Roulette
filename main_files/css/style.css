@@ -13,20 +13,44 @@ h1 {
 
 body {
     background-color: rgb(174, 201, 186);
-    background-color: rgb(87, 101, 93);
-    /* background-color: rgba(10, 35, 8, 0.762); */
+    /* background-color: rgb(87, 101, 93); */
+    background-color: rgba(10, 35, 8, 0.762);
 
 }
 
 /* ===================MENU STYLING=================== */
 
+#pageTitle {
+    font-size: 60px;
+    font-weight: normal;
+    margin: 20px 0px 0px 0px;
+    color: gold;
+    background: -webkit-linear-gradient(60deg, rgb(194, 156, 79) 5%, rgba(252,246,186,1), rgb(187, 150, 70) 1%, rgba(251,245,183,1), rgb(164, 127, 63));
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 6px;
+    text-shadow: 13px 20px 5px rgb(0,0,0,0.2), 5px -20px 0px rgba(72,72,72,0);
+}
+
 #newGameButton {
+    width: 120px;
+    height: 30px;
     margin: 0px 0px 5px 20px;
+    color: rgb(152, 84, 10);
+    background-color: gold;
+    background: linear-gradient(60deg, rgb(191,149,63,1), rgba(252,246,186,1), rgb(187, 150, 70) 1%, rgba(251,245,183,1), rgb(164, 127, 63));
+}
+#newGameButton:active {
+    transform: translateY(3px);
 }
 
 #roundTracker {
-    margin: 0px 0px 0px 20px;
+    margin: 3px 0px 0px 24px;
+    font-size: 28px;
+    text-align: left;
 }
+
+
 
 /* ===================CHIPS AND CHAT=================== */
 
@@ -61,6 +85,14 @@ body {
     background-color: rgba(11, 62, 6, 0.176);
 }
 
+.chips {
+    transform: translateY(2px);
+}
+
+.chips:active {
+    transform: translateY(6px);
+}
+
 .textBoxStyle {
     width: 450px;
     height: 237px;
@@ -70,8 +102,8 @@ body {
 }
 
 #textHistory {
-    border-radius: 0%;
-    width: 99%;
+    border-radius: 2%;
+    width: 100%;
     height: 100%;
     /* color: rgba(243, 243, 243, 0.893); */
     background-color: rgba(9, 45, 6, 0.3);
@@ -80,7 +112,7 @@ body {
 #textHistory p {
     color: rgba(255, 255, 255, 0.928);
     font-size: 20px;
-    padding: 5px;
+    padding: 5px 10px 0px 10px;
     text-align: left;
     font-weight: normal;
 }
@@ -135,6 +167,12 @@ body {
     background-color: rgba(38, 113, 38, 1);
     color: white;
     box-shadow: 2px 2px 2px 2px rgba(84, 47, 17, 1);
+}
+
+.insdeBet .outsideBet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .longBet {
@@ -282,18 +320,39 @@ body {
     margin: 0 auto;
     padding: 0px 0px 50px 0px;
     width: 200px;
+    height: 30px;;
 }
 
 #removeBets {
-    height: 35px
+    /* height: 35px; */
+    color: rgb(152, 84, 10);
+    background: linear-gradient(960deg, rgb(191,149,63,1), rgba(252,246,186,1), rgb(187, 150, 70) 1%, rgba(251,245,183,1), rgb(164, 127, 63));
+}
+
+#removeBets:active {
+    transform: translateY(3px);
+}
+
+#playRound {
+    font-size: 14px;
+    height: 101%;
+    color: rgb(152, 84, 10);
+    background: linear-gradient(960deg, rgb(191,149,63,1), rgba(252,246,186,1), rgb(187, 150, 70) 1%, rgba(251,245,183,1), rgb(164, 127, 63));
+}
+
+#playRound:active {
+    transform: translateY(3px);
 }
 
 .betAmountThisRound {
     margin: 0 auto;
     text-align: center;
-    font-size: 30px;
+    font-size: 32px;
+    /* font-weight: bold; */
     padding: 0px 0px 10px 0px;
 }
+
+
 
 /* ===================WELCOME PAGE=================== */
 

@@ -18,7 +18,6 @@ const chip2 = document.getElementById("chip_5")
 const chip3 = document.getElementById("chip_25")
 const chip4 = document.getElementById("chip_100")
 const chip5 = document.getElementById("chip_500")
-
 const chips = document.querySelectorAll(".chips");
 
 chips.forEach(chip => {
@@ -77,6 +76,11 @@ function removeChips() {
     betAmountText.textContent = `Current Bet: ${betAmount}`;
     gameHistory("You removed your bets.");
 };
+const clearBets = document.getElementById("removeBets")
+clearBets.addEventListener("click", removeChips);
+
+// Above is for pressing clear bets button
+// Below is needed for the end of finalize bets to removeChips
 
 function removeChipsAfterRound() {
     const tempBets = document.querySelectorAll(".temporaryBet")
@@ -85,20 +89,24 @@ function removeChipsAfterRound() {
     });
     betAmount = 0;
     betAmountText.textContent = `Current Bet: ${betAmount}`;
-    
 };
 
-const clearBets = document.getElementById("removeBets")
-clearBets.addEventListener("click", removeChips);
+function updateRound() {
+    const roundTracker = document.getElementById("roundTracker")
+    let round = Number(roundTracker.textContent.split(":")[1]);
+    round += 1;
+    roundTracker.textContent = `Round: ${round}`;
+};
 
 function newMoneyTotal() {
     chipWallet -= betAmount;
     valueOfChips.textContent = `Player Chips | Total Value: ${chipWallet}`;
-}
+};
 
 const playRound = document.getElementById("playRound")
 playRound.addEventListener("click", function playRound() {
     newMoneyTotal();
+    updateRound();
     roundResult = spinWheel();
     setTimeout(() => {
         checkCondition();   
@@ -291,6 +299,7 @@ function spinWheel() {
     return wheel[randomWheel];
 };
 
+
 let restartGame  = document.getElementById("newGameButton");
 restartGame.addEventListener("click", newGame);
 
@@ -302,7 +311,6 @@ function newGame() {
     gameHistory("New game started!");
 };
 
-
 function gameHistory(text, historyLimit = 7) {
     let gameMessage = document.createElement("p");
     gameMessage.textContent = text;
@@ -310,7 +318,6 @@ function gameHistory(text, historyLimit = 7) {
     if (textHistory.children.length >= historyLimit) {
         textHistory.removeChild(textHistory.children[0]);
     }
-    
     textHistory.appendChild(gameMessage);
     textHistory.scrollTop = textHistory.scrollHeight;
 };
@@ -378,47 +385,55 @@ function checkCondition() {
         if (Object.keys(payouts.singleBetWin).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 35 to 1`);
             roundWinnings = (betAmount * 36);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.doubleBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 17 to 1`);
             roundWinnings = (betAmount * 18);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.threeBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 11 to 1`);
             roundWinnings = (betAmount * 12);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.fourBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 8 to 1`);
             roundWinnings = (betAmount * 9);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.sixBet).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 5 to 1`);
             roundWinnings = (betAmount * 6);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.outsideTopWin).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 2 to 1`);
             roundWinnings = (betAmount * 3);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
         else if (Object.keys(payouts.outsideBottomWin).includes(lastClass)) {
             alert(`The ball landed on ${roundResult}. You won 1 to 1`);
             roundWinnings = (betAmount * 2);
+            gameHistory(`Dealer: The ball lands on ${roundResult}`);
             gameHistory(`You bet $${betAmount} on '${winningBet.parentElement.innerText.trim()}' and won $${roundWinnings}`);
             moneyAfterWin();
         }
     } else {
         alert(`The ball landed on ${roundResult}. You lost the round.`);
+        gameHistory(`Dealer: The ball lands on ${roundResult}`);
         gameHistory(`You bet $${betAmount} on '${losingBet.parentElement.innerText.trim()}' and lost.`);
     }
 };
