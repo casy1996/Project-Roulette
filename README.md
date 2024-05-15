@@ -1,7 +1,7 @@
 # Vegas-Roulette
 
 #### A full-stack web application built as first project.
-<img src="./images/landing-page-logo.png" alt="Roulette Landing Page logo screenshot>
+<img src="/images/landing-page-logo.png" alt="Roulette Landing Page logo screenshot">
 
 
 ## Description
@@ -24,14 +24,14 @@ Vegas-Roulette is an iteration of the classic roulette game including 0 and 00 b
 
 
 ## Features
-<img src="./images/main-game-image.png" alt="Roulette Landing Page logo screenshot>
+<img src="./images/main-game-image.png" alt="Roulette Landing Page logo screenshot">
 Users can play rounds of Roulette
 Users can make bets on any location/bet type.
 
 
 ## <a name="design"></a>Design
-<img src="./images/chips-and-wallet.png" alt="Chips and Wallet with money after some gameplay>
-<img src="./images/landing-page-logo.png" alt="Roulette Landing Page logo screenshot>
+<img src="./images/chips-and-wallet.png" alt="Chips and Wallet with money after some gameplay">
+<img src="/images/wheel-modal-popup.png" alt="Roulette Landing Page logo screenshot">
 * Roulette table built from a 8 * 3 grid of divs. Flexbox utilized on the middle column to create the number and space bets.
 * Gold gradient on game title and buttons. Buttons include click sound to enhance the player experience.
 * Keyframe animations featured on landing page and roulette wheel image modal.
@@ -57,10 +57,10 @@ Main Game:
   
     
 ## Works Cited:
--https://www.w3schools.com/howto/howto_css_modals.asp
--https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
--https://www.troutfly.net/pinegrow-training/about-css/css-grid-justify-items.html
+- https://www.w3schools.com/howto/howto_css_modals.asp
+- https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+- https://www.troutfly.net/pinegrow-training/about-css/css-grid-justify-items.html
 
 
-##<a name="author"></a>About the Author:
+## <a name="author"></a>About the Author:
 Up and coming software developer with a passion for design and all things visual.
