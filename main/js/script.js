@@ -13,6 +13,21 @@ valueOfChips.textContent = `Player Chips | Total Value: ${gambler.money}`
 
 let chipWallet = gambler.money
 
+const newGameAudio = document.getElementById("newGameAudio")
+function newGameSound() {
+    newGameAudio.play();
+}
+
+const clearBetsAudio = document.getElementById("clearBetsAudio")
+function clearBetsSound() {
+    clearBetsAudio.play();
+}
+
+const placeBetsAudio = document.getElementById("placeBetsAudio")
+function placeBetsSound() {
+    placeBetsAudio.play();
+}
+
 const chip1 = document.getElementById("chip_1")
 const chip2 = document.getElementById("chip_5")
 const chip3 = document.getElementById("chip_25")
@@ -66,7 +81,6 @@ rouletteBets.forEach(rouletteBet => {
 });
 
 
-
 function removeChips() {
     const tempBets = document.querySelectorAll(".temporaryBet")
     tempBets.forEach(tempBet => {
@@ -75,6 +89,7 @@ function removeChips() {
     betAmount = 0;
     betAmountText.textContent = `Current Bet: ${betAmount}`;
     gameHistory("You removed your bets.");
+    clearBetsSound();
 };
 const clearBets = document.getElementById("removeBets")
 clearBets.addEventListener("click", removeChips);
@@ -108,6 +123,7 @@ playRound.addEventListener("click", function playRound() {
     newMoneyTotal();
     updateRound();
     roundResult = spinWheel();
+    placeBetsSound();
     setTimeout(() => {
         checkCondition();   
         removeChipsAfterRound();
@@ -308,6 +324,7 @@ function newGame() {
     valueOfChips.textContent = `Player Chips | Total Value: ${chipWallet}`;
     betAmount = 0;
     betAmountText.textContent = `Current Bet: ${betAmount}`;
+    newGameSound();
     gameHistory("New game started!");
 };
 
