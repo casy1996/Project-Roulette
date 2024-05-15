@@ -47,10 +47,10 @@ Vegas-Roulette is an iteration of the classic roulette game including 0 and 00 b
 
 ## <a name="deployment"></a>Deployed Link
 Landing Page:
-[Github.com](https://casy1996.github.io/Project-Roulette/)
+[Project-Roulette](https://casy1996.github.io/Project-Roulette/)
 
 Main Game:
-[Github.com](https://casy1996.github.io/Project-Roulette/main/roulette.html)
+[Project-Roulette/main](https://casy1996.github.io/Project-Roulette/main/roulette.html)
 
 * You can view the repository:
 [Github.com](https://github.com/casy1996/Project-Roulette)
