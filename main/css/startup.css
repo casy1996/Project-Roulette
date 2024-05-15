@@ -1,0 +1,115 @@
+/* ===================WELCOME PAGE=================== */
+* {
+    margin: none;
+    border: none;
+}
+
+.start {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+@font-face {
+    font-family: roulettefont;
+    src: url(/fonts/Cream\ Cake.otf);
+}
+
+@font-face {
+    font-family: titlefont;
+    src: url(/fonts/Voguella.ttf);
+}
+
+
+
+.slideTitle {
+    display: flex;
+    padding: -40px 0px 100px 0px;
+    animation: slide 14s infinite;
+}
+
+.welcomeButton {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    /* opacity: 0.2; */
+}
+
+.invisible {
+    font-size: 300px;
+    color: rgba(255,255,255,0);
+    user-select: none;
+}
+
+.vegasSign {
+    justify-content: flex-start;
+    /* margin: 0 auto; */
+    margin: 0px 0px 60px 0px;
+    opacity: 0.98;
+    width: 1100px;
+    height: 1200px;
+    /* animation: spin 4s infinite; */
+}
+
+/* @media screen and (max-width: 1500px%=) {
+    .vegasSign {
+        width: 1000px;
+    }
+    @keyframes slide {
+        0% {
+            transform: translateX(1700px);
+        }
+        95% {
+            transform: translateX(-4000px);
+        }
+        100% {
+            transform: translateX(-4000px);
+        }
+    }
+} */
+
+@keyframes spin {
+    0% {
+        transform: rotate(360deg);
+    }
+}
+
+.welcome {
+    margin: 0;
+    padding: 120px 0px 0px 0px;
+    color: white;
+    /* padding: 0px 300px 0px 0px; */
+    font-size: 600px;
+    font-family: titlefont;
+    font-weight: normal;
+    white-space: nowrap;
+    letter-spacing: 40px;
+    /* overflow: hidden; */
+}
+
+.vegas {
+    color: white;
+    font-size: 120px;
+}
+
+.roulette {
+    justify-content: left;
+    flex-shrink: 10;
+    color: white;
+    font-size: 200px;
+    font-weight: normal;
+    letter-spacing: 12px;
+    font-family: roulettefont;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(1700px);
+    }
+    95% {
+        transform: translateX(-4000px);
+    }
+    100% {
+        transform: translateX(-4000px);
+    }
+}

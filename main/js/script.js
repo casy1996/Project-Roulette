@@ -326,7 +326,7 @@ function gameHistory(text, historyLimit = 7) {
 const betNumbers = {
     "0": ["singleNumWinZero"],
     "00": ["singleNumZeroZero"],
-    1: ['singleNumOne','twoA','twoB','threeA','fourA','sixA','dozenOneWin', 'bottomRowWin','firstHalfWin','redWin','oddWin'],
+    1: ['singleNumOne','twoA','twoB','threeA','fourA','sixA','dozenOneWin','bottomRowWin','firstHalfWin','redWin','oddWin'],
     2: ['singleNumTwo','twoA','twoC','twoD','threeA','fourA','fourB','sixA','dozenOneWin','middleRowWin','firstHalfWin', 'blackWin','evenWin'],
     3: ['singleNumThree','twoC','twoE','threeA','fourB','sixA','dozenOneWin','topRowWin','firstHalfWin','redWin','oddWin'],
     4: ['singleNumFour','singleNumThirtyFour','twoB','twoF','twoG','threeB','fourA','fourC','sixA','sixB','dozenOneWin','bottomRowWin','firstHalfWin','blackWin','evenWin'],
@@ -337,7 +337,7 @@ const betNumbers = {
     9: ['singleNumNine','twoJ','twoM','twoO','threeC','fourD','fourF','sixB','sixC','dozenOneWin','topRowWin','firstHalfWin','redWin','oddWin'],
     10: ['singleNumTen','twoL','twoP','twoQ','threeD','fourE','fourG','sixC','sixD','dozenOneWin','bottomRowWin', 'firstHalfWin','blackWin','evenWin'],
     11: ['singleNumEleven','twoN','twoP','twoR','twoS','threeD','fourE','fourF','fourG','fourH','sixC','sixD','dozenOneWin','middleRowWin','firstHalfWin','blackWin','oddWin'],
-    12: ['singleNumTwelve','twoO','twoR','twoT','threeD','fourF','fourH','sixC','sixD','dozenOneWin','dozenTwoWin','topRowWin','firstHalfWin','redWin','evenWin'],
+    12: ['singleNumTwelve','twoO','twoR','twoT','threeD','fourF','fourH','sixC','sixD','dozenOneWin','topRowWin','firstHalfWin','redWin','evenWin'],
     13: ['singleNumThirteen','twoQ','twoU','twoV','threeE','fourG','fourI','sixD','sixE','dozenTwoWin','bottomRowWin','firstHalfWin','blackWin','oddWin'],
     14: ['singleNumFourt','twoS','twoU','twoW','twoX','threeE','fourG','fourH','fourI','fourJ','sixD','sixE','dozenTwoWin','middleRowWin','firstHalfWin','redWin','evenWin'],
     15: ['singleNumFifth','twoT','twoW','twoY','threeE','fourH','fourJ','sixD','sixE','dozenTwoWin','topRowWin','firstHalfWin','blackWin','oddWin'],
