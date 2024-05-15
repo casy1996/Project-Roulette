@@ -13,8 +13,8 @@ h1 {
 
 body {
     background-color: rgb(174, 201, 186);
-    /* background-color: rgb(87, 101, 93); */
-    background-color: rgba(10, 35, 8, 0.762);
+    /* background-color: rgba(10, 35, 8, 0.762); */
+    background-color: rgba(10, 35, 8, 0.792);
 
 }
 
@@ -35,6 +35,8 @@ body {
 #newGameButton {
     width: 120px;
     height: 30px;
+    font-size: 16px;
+    letter-spacing: 1px;
     margin: 0px 0px 5px 20px;
     color: rgb(152, 84, 10);
     background-color: gold;
@@ -84,7 +86,7 @@ body {
     width: 450px;
     padding: 15px 0px 15px 0px;
     border-radius: 10%;
-    background-color: rgba(11, 62, 6, 0.176);
+    background-color: rgba(11, 62, 6, 0.276);
 }
 
 .chips {
@@ -99,15 +101,13 @@ body {
     width: 450px;
     height: 237px;
     padding: 15px 0px 15px 0px;
-    /* border-radius: 10%; */
-    background-color: rgba(9, 45, 6, 0.176);
+    background-color: rgba(9, 45, 6, 0.276);
 }
 
 #textHistory {
     border-radius: 2%;
     width: 100%;
     height: 100%;
-    /* color: rgba(243, 243, 243, 0.893); */
     background-color: rgba(9, 45, 6, 0.3);
 }
 
@@ -120,7 +120,6 @@ body {
 }
 
 .chips {
-    /* padding: 20px 0px 0px 0px; */
     cursor: pointer;
     width: 25%;
     margin: 0;
@@ -140,13 +139,10 @@ body {
 .gameTable {
     display: grid;
     grid-template-columns: 90px 700px 90px;
-    /* grid-template-rows: 35px 15px 35px 15px 35px 15px 30px 30px; */
     grid-template-rows: 45px 25px 45px 25px 45px 25px 40px 40px;
-    /* width: 51.3%; */
     margin: 0 auto;
     justify-content: center;
     font-size: 18px;
-    /* background-color: darkgreen; */
 }
 
 .spaceBet {
@@ -159,8 +155,6 @@ body {
     border-color: rgba(0, 0, 0, 0.15);
     color: white;
     cursor: pointer;
-    /* box-shadow: 1px 1px 1px 1px rgba(84, 47, 17, 1); */
-    /* box-shadow: 0px 0px 0px 1px rgb(255, 255, 255); */
 }
 
 .outsideBet {
@@ -198,7 +192,6 @@ body {
 
 .topMiddleCell {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 .topRowBet {
@@ -210,17 +203,14 @@ body {
 
 .topSpaceCell {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 .topSpaceBet {
     flex: 1;
-    /* border: 1px solid black; */
 }
 
 .middleMiddleCell {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 .middleRowBet {
@@ -231,17 +221,14 @@ body {
 
 .middleSpaceCell {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 .middleSpaceBet {
     flex: 1;
-    /* border: 1px solid black; */
 }
 
 .bottomSpaceCell {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 .bottomRowBet {
@@ -252,12 +239,10 @@ body {
 
 .bottomSpaceBet {
     flex: 1;
-    /* border: 1px solid black; */
 }
 
 .bottomMiddleCell {
     display: flex;
-    /* border: 1px solid black; */
 }
 
 .upperMiddleCell {
@@ -301,14 +286,10 @@ body {
 
 .blackDiamond {
     background-color: black;
-    /* border-color: white;
-    border-radius: 10%; */
 }
 
 .redDiamond {
     background-color: red;
-    /* border-color: white;
-    border-radius: 10%; */
 }
 
 
@@ -319,13 +300,15 @@ body {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 0px 0px 50px 0px;
-    width: 200px;
+    padding: 10px 0px 50px 0px;
+    width: 260px;
     height: 30px;;
 }
 
 #removeBets {
-    /* height: 35px; */
+    font-size: 16px;
+    /* font-weight: bold; */
+    letter-spacing: 1px;
     color: rgb(152, 84, 10);
     background: linear-gradient(960deg, rgb(191,149,63,1), rgba(252,246,186,1), rgb(187, 150, 70) 1%, rgba(251,245,183,1), rgb(164, 127, 63));
 }
@@ -335,7 +318,8 @@ body {
 }
 
 #playRound {
-    font-size: 14px;
+    font-size: 16px;
+    letter-spacing: 1px;
     height: 101%;
     color: rgb(152, 84, 10);
     background: linear-gradient(960deg, rgb(191,149,63,1), rgba(252,246,186,1), rgb(187, 150, 70) 1%, rgba(251,245,183,1), rgb(164, 127, 63));
@@ -349,14 +333,64 @@ body {
     margin: 0 auto;
     text-align: center;
     font-size: 32px;
-    /* font-weight: bold; */
     padding: 0px 0px 10px 0px;
 }
 
 
-/* ===================AUDIO PLAYER=================== */
+/* ===================MODAL STYLINGR=================== */
 
-/* .audioplayer {
-    width: 50%;
-    height: 50%;
-} */
+.modal-background {
+    display: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.modal-content {
+    width: 500px;
+    height: 400px;
+    border-radius: 5%;
+    background-color: rgba(21, 21, 21, 0.95);
+    text-align: center;
+    padding: 40px 40px 60px 40px;
+}
+
+#rouletteWheel {
+    width: 63%;
+    height: 79%;
+}
+
+@keyframes spinwheel {
+    0% {
+        transform: rotate(-360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.gameProgress {
+    padding: 15px 15px 25px 15px;
+    font-size: 24px;
+    color: white;
+}
+
+.close-modal {
+    border-radius: 5%;
+    font-size: 20px;
+    color: white;
+    background-color: rgba(159, 15, 15, 0.949);
+    padding: 4px 12px 4px 12px;
+    cursor: pointer;
+}
+
+.close-modal:active {
+    transform: translateY(3px);
+}
