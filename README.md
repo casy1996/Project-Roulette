@@ -25,17 +25,18 @@ Vegas-Roulette is an iteration of the classic roulette game including 0 and 00 b
 
 ## Features
 <img src="./images/main-game-image.png" alt="Roulette Landing Page logo screenshot">
-Users can play rounds of Roulette
-Users can make bets on any location/bet type.
+
+- Users can play rounds of Roulette
+- Users can make bets on any location/bet type.
 
 
 ## <a name="design"></a>Design
-<img src="./images/chips-and-wallet.png" alt="Chips and Wallet with money after some gameplay">
-<img src="/images/wheel-modal-popup.png" alt="Roulette Landing Page logo screenshot">
 * Roulette table built from a 8 * 3 grid of divs. Flexbox utilized on the middle column to create the number and space bets.
 * Gold gradient on game title and buttons. Buttons include click sound to enhance the player experience.
 * Keyframe animations featured on landing page and roulette wheel image modal.
 * Chips and buttons play animations when active. Furthermore, chips can be visually distinguised when selected.
+<img src="./images/chips-and-wallet.png" alt="Chips and Wallet with money after some gameplay">
+<img src="/images/wheel-modal-popup.png" alt="Roulette Landing Page logo screenshot">
 
 
 ## <a name="nextsteps"></a>Future Features
