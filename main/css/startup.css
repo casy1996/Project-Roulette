@@ -101,10 +101,10 @@ a:active{
         transform: translateX(1700px);
     }
     85% {
-        transform: translateX(-3850px);
+        transform: translateX(-3820px);
     }
     100% {
-        transform: translateX(-3850px);
+        transform: translateX(-3820px);
     }
 };
 
